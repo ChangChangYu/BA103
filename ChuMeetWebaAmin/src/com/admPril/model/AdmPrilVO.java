@@ -1,30 +1,32 @@
 package com.admPril.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class AdmPrilVO implements java.io.Serializable  {
 	//管理員ID
-	private Integer admPriladminID;
-	//權限編號
 	private Integer admPrilID;
-	private Date admPrildate;
+	//權限編號
+	private Integer adminID;
+	private Timestamp admPrildate;
 	private Integer admPrilStatus;
-	public Integer getAdmPriladminID() {
-		return admPriladminID;
-	}
-	public void setAdmPriladminID(Integer admPriladminID) {
-		this.admPriladminID = admPriladminID;
-	}
+	
+	
 	public Integer getAdmPrilID() {
 		return admPrilID;
 	}
 	public void setAdmPrilID(Integer admPrilID) {
 		this.admPrilID = admPrilID;
 	}
-	public Date getAdmPrildate() {
+	public Integer getAdminID() {
+		return adminID;
+	}
+	public void setAdminID(Integer adminID) {
+		this.adminID = adminID;
+	}
+	public Timestamp getAdmPrildate() {
 		return admPrildate;
 	}
-	public void setAdmPrildate(Date admPrildate) {
+	public void setAdmPrildate(Timestamp admPrildate) {
 		this.admPrildate = admPrildate;
 	}
 	public Integer getAdmPrilStatus() {

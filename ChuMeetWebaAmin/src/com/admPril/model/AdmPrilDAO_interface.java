@@ -5,8 +5,8 @@ import java.util.*;
 public interface AdmPrilDAO_interface {
 		public void insert(AdmPrilVO admPrilVO);
 		public void update(AdmPrilVO admPrilVO);
-		public void delete(Integer admPriladminID);
-		public AdmPrilVO findByPrimaryKey(Integer admPriladminID);
+		public void delete(Integer admPrilID);
+		public AdmPrilVO findByPrimaryKey(Integer admPrilID);
 		public List<AdmPrilVO> getAll();
 		
 }

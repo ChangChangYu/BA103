@@ -11,12 +11,12 @@ public class AdmPrilService {
 		dao = new AdmPrilDAO();
 	}
 
-	public AdmPrilVO addAdmPril(Integer admPrilID,
-			java.sql.Date admPrildate, Integer admPrilStatus) {
+	public AdmPrilVO addAdmPril(Integer adminID,
+			java.sql.Timestamp admPrildate, Integer admPrilStatus) {
 
 		AdmPrilVO admPrilVO = new AdmPrilVO();
 
-		admPrilVO.setAdmPrilID(admPrilID);
+		admPrilVO.setAdminID(adminID);
 		admPrilVO.setAdmPrildate(admPrildate);
 		admPrilVO.setAdmPrilStatus(admPrilStatus);
 		dao.insert(admPrilVO);
@@ -29,19 +29,19 @@ public class AdmPrilService {
 		dao.insert(admPrilVO);
 	}
 	
-	public AdmPrilVO updateAdmPril(Integer admPriladminID, Integer admPrilID,
-			java.sql.Date admPrildate, Integer admPrilStatus) {
+	public AdmPrilVO updateAdmPril(Integer admPrilID, Integer adminID,
+			java.sql.Timestamp admPrildate, Integer admPrilStatus) {
 
 		AdmPrilVO admPrilVO = new AdmPrilVO();
 
-		admPrilVO.setAdmPriladminID(admPriladminID);
 		admPrilVO.setAdmPrilID(admPrilID);
+		admPrilVO.setAdminID(adminID);
 		admPrilVO.setAdmPrildate(admPrildate);
 		admPrilVO.setAdmPrilStatus(admPrilStatus);
 		
 		dao.update(admPrilVO);
 
-		return dao.findByPrimaryKey(admPrilID);
+		return dao.findByPrimaryKey(adminID);
 	}
 	
 	//�w�d�� Struts 2 �Ϊ�
@@ -49,12 +49,12 @@ public class AdmPrilService {
 		dao.update(admPrilVO);
 	}
 
-	public void deleteAdmPril(Integer admPrilID) {
-		dao.delete(admPrilID);
+	public void deleteAdmPril(Integer adminID) {
+		dao.delete(adminID);
 	}
 
-	public AdmPrilVO getOneAdmPril(Integer admPrilID) {
-		return dao.findByPrimaryKey(admPrilID);
+	public AdmPrilVO getOneAdmPril(Integer adminID) {
+		return dao.findByPrimaryKey(adminID);
 	}
 
 	public List<AdmPrilVO> getAll() {

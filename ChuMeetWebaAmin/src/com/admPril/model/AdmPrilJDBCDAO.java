@@ -13,15 +13,15 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 	String userid="servlet";
 	String passwd="123";
 		private static final String INSERT_STMT=
-				"INSERT INTO admPril (admPriladminID,admPrilID,admPrildate,admPrilStatus) VALUSE (?,?,?,?)";
+				"INSERT INTO admPril (admPrilID,adminID,admPrildate,admPrilStatus) VALUES (?,?,?,?)";
 		private static final String GET_ALL_STMT=
-				"SELECT admPriladminID,admPrilID,to_char(hiredate,'yyyy-mm-dd')admPrildate,admPrilStatus From admPril order by admPriladminID";
+				"SELECT admPrilID,adminID,to_char(admPrildate,'yyyy-mm-dd hh:mm:ss')admPrildate,admPrilStatus From admPril order by admPrilID";
 		private static final String GET_ONE_STMT=
-				"SELECT admPriladminID,admPrilID,to_char(hiredate,'yyyy-mm-dd')admPrildate,admPrilStatus From where admPriladminID";
+				"SELECT admPrilID,adminID,to_char(admPrildate,'yyyy-mm-dd hh:mm:ss')admPrildate,admPrilStatus From admPril where admPrilID=?";
 		private static final String DELETE=
-				"DELETE FROM admPril where admPriladminID =?";
+				"DELETE FROM admPril where admPrilID =?";
 		private static final String UPDATE=
-				"UPDATE admPril set admPrilID=?, admPrildate=? ,admPrilStatus=?"; 
+				"UPDATE admPril set adminID=?, admPrildate=? ,admPrilStatus=? where admPrilID=?"; 
 		
 	
 	
@@ -38,9 +38,12 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
+			//"INSERT INTO admPril (admPrilID,adminID,admPrildate,admPrilStatus) VALUSE (?,?,?,?)";
+			
 			pstmt.setInt(1, admPrilVO.getAdmPrilID());
-			pstmt.setDate(2, admPrilVO.getAdmPrildate());
-			pstmt.setInt(3, admPrilVO.getAdmPrilStatus());
+			pstmt.setInt(2, admPrilVO.getAdminID());
+			pstmt.setTimestamp(3, admPrilVO.getAdmPrildate());
+			pstmt.setInt(4, admPrilVO.getAdmPrilStatus());
 		
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
@@ -81,10 +84,12 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, admPrilVO.getAdmPrilID());
-			pstmt.setDate(2, admPrilVO.getAdmPrildate());
-			pstmt.setInt(3, admPrilVO.getAdmPrilStatus());
+			//UPDATE admPril set adminID=?, admPrildate=? ,admPrilStatus=? where admPrilID=?
 			
+			pstmt.setInt(1, admPrilVO.getAdminID());
+			pstmt.setTimestamp(2, admPrilVO.getAdmPrildate());
+			pstmt.setInt(3, admPrilVO.getAdmPrilStatus());
+			pstmt.setInt(4, admPrilVO.getAdmPrilID());
 		
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
@@ -114,7 +119,7 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 	}
 
 	@Override
-	public void delete(Integer admPriladminID) {
+	public void delete(Integer admPrilID) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -125,7 +130,7 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 				con = DriverManager.getConnection(url, userid, passwd);
 				pstmt = con.prepareStatement(DELETE);
 
-				pstmt.setInt(1, admPriladminID);
+				pstmt.setInt(1, admPrilID);
 
 				pstmt.executeUpdate();
 			} catch (ClassNotFoundException e) {
@@ -155,7 +160,7 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 	}
 
 	@Override
-	public AdmPrilVO findByPrimaryKey(Integer admPriladminID) {
+	public AdmPrilVO findByPrimaryKey(Integer admPrilID) {
 		// TODO Auto-generated method stub
 		AdmPrilVO admPrilVO = null;
 		Connection con = null;
@@ -168,16 +173,16 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, admPriladminID);
+			pstmt.setInt(1, admPrilID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
 				admPrilVO = new AdmPrilVO();
-				admPrilVO.setAdmPriladminID(rs.getInt("admPriladminID"));
-				admPrilVO.setAdmPrilID(rs.getInt("admPrilId"));
-				admPrilVO.setAdmPrildate(rs.getDate("admPrildate"));
+				admPrilVO.setAdmPrilID(rs.getInt("admPrilID"));
+				admPrilVO.setAdminID(rs.getInt("adminID"));
+				admPrilVO.setAdmPrildate(rs.getTimestamp("admPrildate"));
 				admPrilVO.setAdmPrilStatus(rs.getInt("admPrilStatus"));
 			
 			}
@@ -236,9 +241,9 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
 				admPrilVO = new AdmPrilVO();
-				admPrilVO.setAdmPriladminID(rs.getInt("adminPriladminID"));
 				admPrilVO.setAdmPrilID(rs.getInt("admPrilID"));
-				admPrilVO.setAdmPrildate(rs.getDate("admPrildate"));
+				admPrilVO.setAdminID(rs.getInt("adminID"));
+				admPrilVO.setAdmPrildate(rs.getTimestamp("admPrildate"));
 				admPrilVO.setAdmPrilStatus(rs.getInt("admPrilStatus"));
 				
 				list.add(admPrilVO); // Store the row in the list
@@ -282,29 +287,31 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 
 		AdmPrilJDBCDAO dao = new AdmPrilJDBCDAO();
 
-		// �s�W
-		AdmPrilVO admPrilVO1 = new AdmPrilVO();
-		admPrilVO1.setAdmPrilID(1);
-		admPrilVO1.setAdmPrildate(java.sql.Date.valueOf("2005-01-01"));
-		admPrilVO1.setAdmPrilStatus(1);
-		
-		dao.insert(admPrilVO1);
-
+		// �s�W   //"INSERT INTO admPril (admPrilID,adminID,admPrildate,admPrilStatus) VALUSE (?,?,?,?)";
+//		AdmPrilVO admPrilVO1 = new AdmPrilVO();
+//		admPrilVO1.setAdmPrilID(3);
+//		admPrilVO1.setAdminID(1);
+//		admPrilVO1.setAdmPrildate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
+//		admPrilVO1.setAdmPrilStatus(1);
+//		
+//		dao.insert(admPrilVO1);
+		//UPDATE admPril set adminID=?, admPrildate=? ,admPrilStatus=? where admPrilID=?
 		// �ק�
 		AdmPrilVO admPrilVO2 = new AdmPrilVO();
-		admPrilVO2.setAdmPriladminID(1);
-		admPrilVO2.setAdmPrilID(2);
-		admPrilVO2.setAdmPrildate(java.sql.Date.valueOf("2005-01-01"));
+		admPrilVO2.setAdmPrilID(3);
+		admPrilVO2.setAdminID(2);
+		admPrilVO2.setAdmPrildate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
 		admPrilVO2.setAdmPrilStatus(1);
+		//admPrilVO2.setAdmPrilID(3);
 		dao.update(admPrilVO2);
 
 		// �R��
-		dao.delete(1);
+		dao.delete(3);
 
 		// �d��
 		AdmPrilVO admPrilVO3 = dao.findByPrimaryKey(1);
-		System.out.print(admPrilVO3.getAdmPriladminID() + ",");
 		System.out.print(admPrilVO3.getAdmPrilID() + ",");
+		System.out.print(admPrilVO3.getAdminID() + ",");
 		System.out.print(admPrilVO3.getAdmPrildate() + ",");
 		System.out.print(admPrilVO3.getAdmPrilStatus() + ",");
 		
@@ -313,8 +320,8 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 		// �d��
 		List<AdmPrilVO> list = dao.getAll();
 		for (AdmPrilVO aAdmPril : list) {
-			System.out.print(aAdmPril.getAdmPriladminID() + ",");
 			System.out.print(aAdmPril.getAdmPrilID() + ",");
+			System.out.print(aAdmPril.getAdminID() + ",");
 			System.out.print(aAdmPril.getAdmPrildate() + ",");
 			System.out.print(aAdmPril.getAdmPrilStatus() + ",");
 			

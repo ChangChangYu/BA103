@@ -4,7 +4,7 @@ public class AdmPrilTypeVO implements java.io.Serializable{
 	
 	private Integer admPrilID;
 	private String admPrilTypeName;
-	private Integer admPrilTypeStatu;
+	private Integer admPrilTypeStatus;
 	
 	public Integer getAdmPrilID() {
 		return admPrilID;
@@ -18,12 +18,13 @@ public class AdmPrilTypeVO implements java.io.Serializable{
 	public void setAdmPrilTypeName(String admPrilTypeName) {
 		this.admPrilTypeName = admPrilTypeName;
 	}
-	public Integer getAdmPrilTypeStatu() {
-		return admPrilTypeStatu;
+	public Integer getAdmPrilTypeStatus() {
+		return admPrilTypeStatus;
 	}
-	public void setAdmPrilTypeStatu(Integer admPrilTypeStatu) {
-		this.admPrilTypeStatu = admPrilTypeStatu;
+	public void setAdmPrilTypeStatus(Integer admPrilTypeStatus) {
+		this.admPrilTypeStatus = admPrilTypeStatus;
 	}
+	
 
 	
 	

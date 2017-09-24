@@ -11,7 +11,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "servlet";
-	String passwd = "123456";
+	String passwd = "123";
 
 	private static final String INSERT_STMT =
 			"INSERT INTO admin (adminID,adminName,adminMail,adminPW,adminEmail,adminDate,adminStatus) VALUES (adminID_SEQ.NEXTVAL,?,?,?,?,?,?)";
@@ -36,8 +36,6 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 			Class.forName(driver);
 			con =DriverManager.getConnection(url,userid,passwd);
 			pstmt =con.prepareStatement(UPDATE);
-			
-			
 	
 			pstmt.setString(1, adminVO.getAdminName());
 			pstmt.setString(2, adminVO.getAdminMail());
@@ -244,7 +242,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 
 		// �s�W
 //		AdminVO adminVO1 = new AdminVO();
-//		adminVO1.setAdminID(3);
+//		adminVO1.setAdminID(4);
 //		adminVO1.setAdminName("123");
 //		adminVO1.setAdminMail("MANAGER");
 //		adminVO1.setAdminPW("1233");
