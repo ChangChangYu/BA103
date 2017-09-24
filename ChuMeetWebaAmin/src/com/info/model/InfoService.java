@@ -7,7 +7,7 @@ public class InfoService {
 	private InfoDAO_interface dao;
 
 	public InfoService() {
-		dao = new InfoJDBCDAO();
+		dao = new InfoDAO();
 	}
 
 	public InfoVO addInfo(Integer infoID, String infoName, String infoContent) {

@@ -38,14 +38,14 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			//"INSERT INTO admPril (admPrilID,adminID,admPrildate,admPrilStatus) VALUSE (?,?,?,?)";
+		
 			
 			pstmt.setInt(1, admPrilVO.getAdmPrilID());
 			pstmt.setInt(2, admPrilVO.getAdminID());
 			pstmt.setTimestamp(3, admPrilVO.getAdmPrildate());
-			pstmt.setInt(4, admPrilVO.getAdmPrilStatus());
-		
+			pstmt.setInt(4, admPrilVO.getAdmPrilStatus());		
 			pstmt.executeUpdate();
+			
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
 					+ e.getMessage());
@@ -84,7 +84,7 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			//UPDATE admPril set adminID=?, admPrildate=? ,admPrilStatus=? where admPrilID=?
+		
 			
 			pstmt.setInt(1, admPrilVO.getAdminID());
 			pstmt.setTimestamp(2, admPrilVO.getAdmPrildate());
@@ -244,8 +244,7 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 				admPrilVO.setAdmPrilID(rs.getInt("admPrilID"));
 				admPrilVO.setAdminID(rs.getInt("adminID"));
 				admPrilVO.setAdmPrildate(rs.getTimestamp("admPrildate"));
-				admPrilVO.setAdmPrilStatus(rs.getInt("admPrilStatus"));
-				
+				admPrilVO.setAdmPrilStatus(rs.getInt("admPrilStatus"));				
 				list.add(admPrilVO); // Store the row in the list
 			}
 
@@ -287,26 +286,26 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 
 		AdmPrilJDBCDAO dao = new AdmPrilJDBCDAO();
 
-		// �s�W   //"INSERT INTO admPril (admPrilID,adminID,admPrildate,admPrilStatus) VALUSE (?,?,?,?)";
-//		AdmPrilVO admPrilVO1 = new AdmPrilVO();
-//		admPrilVO1.setAdmPrilID(3);
-//		admPrilVO1.setAdminID(1);
-//		admPrilVO1.setAdmPrildate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
-//		admPrilVO1.setAdmPrilStatus(1);
-//		
-//		dao.insert(admPrilVO1);
-		//UPDATE admPril set adminID=?, admPrildate=? ,admPrilStatus=? where admPrilID=?
+		// �s�W   
+		AdmPrilVO admPrilVO1 = new AdmPrilVO();
+		admPrilVO1.setAdmPrilID(3);
+		admPrilVO1.setAdminID(1);
+		admPrilVO1.setAdmPrildate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
+		admPrilVO1.setAdmPrilStatus(1);		
+		dao.insert(admPrilVO1);
+		
+		
 		// �ק�
-		AdmPrilVO admPrilVO2 = new AdmPrilVO();
-		admPrilVO2.setAdmPrilID(3);
-		admPrilVO2.setAdminID(2);
-		admPrilVO2.setAdmPrildate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
-		admPrilVO2.setAdmPrilStatus(1);
-		//admPrilVO2.setAdmPrilID(3);
-		dao.update(admPrilVO2);
-
-		// �R��
-		dao.delete(3);
+//		AdmPrilVO admPrilVO2 = new AdmPrilVO();
+//		admPrilVO2.setAdmPrilID(3);
+//		admPrilVO2.setAdminID(1);
+//		admPrilVO2.setAdmPrildate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
+//		admPrilVO2.setAdmPrilStatus(1);
+//		
+//		dao.update(admPrilVO2);
+//
+//		// �R��
+//		dao.delete(3);
 
 		// �d��
 		AdmPrilVO admPrilVO3 = dao.findByPrimaryKey(1);

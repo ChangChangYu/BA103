@@ -1,7 +1,6 @@
-package com.Ann.model;
+package com.FAQ.model;
 
 import java.sql.*;
-
 import java.util.*;
 
 import javax.naming.Context;
@@ -9,8 +8,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class AnnDAO implements AnnDAO_interface{
+public class FAQDAO implements FAQDAO_interface{
 
+	
 	private static DataSource ds = null;
 	static {
 		try {
@@ -21,21 +21,19 @@ public class AnnDAO implements AnnDAO_interface{
 		}
 	}
 	private static final String INSERT_STMT = 
-			"INSERT INTO ann (annID,adminID,annName,annContent,annDate) VALUES (annID_seq.NEXTVAL, ?, ?, ?, ?)";
+			"INSERT INTO faq(faqID,faqTitle,faqContent,faqDate) VALUES ( ?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT annID,adminID,annName,annContent,to_char(annDate,'yyyy-mm-dd hh:mm:ss')annDate FROM ann order by annID";
+			"SELECT faqID,faqTitle,faqContent,to_char(faqDate,'yyyy-mm-dd hh:mm:ss')faqDate FROM faq order by faqID";
 		private static final String GET_ONE_STMT = 
-			"SELECT annID,adminID,annName,annContent,to_char(annDate,'yyyy-mm-dd hh:mm:ss')annDate FROM ann where annID = ?";
+			"SELECT faqID,faqTitle,faqContent,to_char(faqDate,'yyyy-mm-dd hh:mm:ss')faqDate FROM faq where faqID = ?";
 		private static final String DELETE = 
-			"DELETE FROM ann where annID = ?";
+			"DELETE FROM faq where faqID = ?";
 		private static final String UPDATE = 
-			"UPDATE ann set adminID=?,annName=?,annContent=?,annDate=?  where annID = ?";
+			"UPDATE faq set faqTitle=?, faqContent=?, faqDate=? where faqID = ?";
 
-		
-		
 		@Override
-		public void insert(AnnVO annVO) {
-			// TODO Auto-generated method stub
+		public void insert(FAQVO faqVO) {
+
 			Connection con = null;
 			PreparedStatement pstmt = null;
 
@@ -44,16 +42,14 @@ public class AnnDAO implements AnnDAO_interface{
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(INSERT_STMT);
 
-				pstmt.setInt(1, annVO.getAdminID());
-				pstmt.setString(2, annVO.getAnnName());
-				pstmt.setString(3, annVO.getAnnContent());
-				pstmt.setTimestamp(4, annVO.getAnnDate());
-				
-
+				pstmt.setInt(1, faqVO.getFAQID());
+				pstmt.setString(2, faqVO.getFAQTitle());
+				pstmt.setString(3, faqVO.getFAQContent());
+				pstmt.setTimestamp(4, faqVO.getFAQDate());			
 				pstmt.executeUpdate();
 
 				// Handle any driver errors
-			} catch (SQLException se) {
+			}  catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 				// Clean up JDBC resources
@@ -77,8 +73,8 @@ public class AnnDAO implements AnnDAO_interface{
 		}
 
 		@Override
-		public void update(AnnVO annVO) {
-			// TODO Auto-generated method stub
+		public void update(FAQVO faqVO) {
+
 			Connection con = null;
 			PreparedStatement pstmt = null;
 
@@ -86,13 +82,11 @@ public class AnnDAO implements AnnDAO_interface{
 
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(UPDATE);
-				//adminID=?,annName=?,annContent=?,annDate=? 
-				pstmt.setInt(1, annVO.getAdminID());
-				pstmt.setString(2, annVO.getAnnName());
-				pstmt.setString(3, annVO.getAnnContent());
-				pstmt.setTimestamp(4, annVO.getAnnDate());
-				pstmt.setInt(5, annVO.getAnnID());
 
+				pstmt.setString(1, faqVO.getFAQTitle());
+				pstmt.setString(2, faqVO.getFAQContent());
+				pstmt.setTimestamp(3, faqVO.getFAQDate());
+				pstmt.setInt(4, faqVO.getFAQID());			
 				pstmt.executeUpdate();
 
 				// Handle any driver errors
@@ -118,19 +112,19 @@ public class AnnDAO implements AnnDAO_interface{
 			}
 
 		}
+
 		@Override
-		public void delete(Integer annID) {
-			// TODO Auto-generated method stub
-			
+		public void delete(Integer faqID) {
+
 			Connection con = null;
 			PreparedStatement pstmt = null;
 
 			try {
 
-			
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(DELETE);
 
-				pstmt.setInt(1, annID);
+				pstmt.setInt(1, faqID);
 
 				pstmt.executeUpdate();
 
@@ -159,31 +153,31 @@ public class AnnDAO implements AnnDAO_interface{
 		}
 
 		@Override
-		public AnnVO findByPrimaryKey(Integer annID) {
-			// TODO Auto-generated method stub
-			AnnVO annVO = null;
+		public FAQVO findByPrimaryKey(Integer faqID) {
+
+			FAQVO faqVO = null;
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 
 			try {
 
-				
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ONE_STMT);
 
-				pstmt.setInt(1, annID);
+				pstmt.setInt(1, faqID);
 
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
 					// empVo �]�٬� Domain objects
-					annVO = new AnnVO();
-					annVO.setAnnID(rs.getInt(1));
-					annVO.setAdminID(rs.getInt(1));
-					annVO.setAnnContent(rs.getString("job"));
-					annVO.setAnnDate(rs.getTimestamp("hiredate"));
+					faqVO = new FAQVO();
+					faqVO.setFAQID(rs.getInt("faqID"));
+					faqVO.setFAQTitle(rs.getString("faqTitle"));
+					faqVO.setFAQContent(rs.getString("faqContent"));
+					faqVO.setFAQDate(rs.getTimestamp("faqDate"));
 					
-					
+			
 				}
 
 				// Handle any driver errors
@@ -214,13 +208,13 @@ public class AnnDAO implements AnnDAO_interface{
 					}
 				}
 			}
-			return annVO;
+			return faqVO;
 		}
+
 		@Override
-		public List<AnnVO> getAll() {
-			// TODO Auto-generated method stub
-			List<AnnVO> list = new ArrayList<AnnVO>();
-			AnnVO annVO = null;
+		public List<FAQVO> getAll() {
+			List<FAQVO> list = new ArrayList<FAQVO>();
+			FAQVO faqVO = null;
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -234,14 +228,14 @@ public class AnnDAO implements AnnDAO_interface{
 
 				while (rs.next()) {
 					// empVO �]�٬� Domain objects
-					annVO = new AnnVO();
-					annVO.setAnnID(rs.getInt(1));
-					annVO.setAdminID(rs.getInt(1));
-					annVO.setAnnName(rs.getString("job"));
-					annVO.setAnnContent(rs.getString("hiredate"));
-					annVO.setAnnDate(rs.getTimestamp("sal"));
+					faqVO = new FAQVO();
+					faqVO.setFAQID(rs.getInt("faqID"));
+					faqVO.setFAQTitle(rs.getString("faqTitle"));
+					faqVO.setFAQContent(rs.getString("faqContent"));
+					faqVO.setFAQDate(rs.getTimestamp("faqDate"));				
+					list.add(faqVO); // Store the row in the list
 					
-					list.add(annVO); // Store the row in the list
+
 				}
 
 				// Handle any driver errors
@@ -274,5 +268,4 @@ public class AnnDAO implements AnnDAO_interface{
 			}
 			return list;
 		}
-
 }

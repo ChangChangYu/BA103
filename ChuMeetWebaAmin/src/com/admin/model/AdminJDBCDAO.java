@@ -191,6 +191,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
+		
 			while(rs.next()){
 				adminVO=new AdminVO();
 				adminVO.setAdminID(rs.getInt("adminID"));

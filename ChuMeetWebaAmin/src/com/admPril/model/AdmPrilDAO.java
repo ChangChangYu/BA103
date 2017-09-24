@@ -1,12 +1,16 @@
 package com.admPril.model;
-import java.util.*;
+
 import java.sql.*;
+
+import java.util.*;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class AdmPrilDAO implements AdmPrilDAO_interface{
+
 	
 	private static DataSource ds = null;
 	static {
@@ -18,15 +22,15 @@ public class AdmPrilDAO implements AdmPrilDAO_interface{
 		}
 	}
 	private static final String INSERT_STMT=
-			"INSERT INTO admPril (admPriladminID,admPrilID,admPrildate,admPrilStatus) VALUSE (?,?,?,?)";
+			"INSERT INTO admPril (admPrilID,adminID,admPrildate,admPrilStatus) VALUES (?,?,?,?)";
 	private static final String GET_ALL_STMT=
-			"SELECT admPriladminID,admPrilID,to_char(hiredate,'yyyy-mm-dd')admPrildate,admPrilStatus From admPril order by admPriladminID";
+			"SELECT admPrilID,adminID,to_char(admPrildate,'yyyy-mm-dd hh:mm:ss')admPrildate,admPrilStatus From admPril order by admPrilID";
 	private static final String GET_ONE_STMT=
-			"SELECT admPriladminID,admPrilID,to_char(hiredate,'yyyy-mm-dd')admPrildate,admPrilStatus From where admPriladminID";
+			"SELECT admPrilID,adminID,to_char(admPrildate,'yyyy-mm-dd hh:mm:ss')admPrildate,admPrilStatus From admPril where admPrilID=?";
 	private static final String DELETE=
-			"DELETE FROM admPril where admPriladminID =?";
+			"DELETE FROM admPril where admPrilID =?";
 	private static final String UPDATE=
-			"UPDATE admPril set admPrilID=?, admPrildate=? ,admPrilStatus=?"; 
+			"UPDATE admPril set adminID=?, admPrildate=? ,admPrilStatus=? where admPrilID=?"; 
 	
 
 
@@ -42,11 +46,14 @@ public void insert(AdmPrilVO admPrilVO) {
 		con = ds.getConnection();
 		pstmt = con.prepareStatement(INSERT_STMT);
 
+		//"INSERT INTO admPril (admPrilID,adminID,admPrildate,admPrilStatus) VALUSE (?,?,?,?)";
+		
 		pstmt.setInt(1, admPrilVO.getAdmPrilID());
-		pstmt.setDate(2, admPrilVO.getAdmPrildate());
-		pstmt.setInt(3, admPrilVO.getAdmPrilStatus());
-	
+		pstmt.setInt(2, admPrilVO.getAdminID());
+		pstmt.setTimestamp(3, admPrilVO.getAdmPrildate());
+		pstmt.setInt(4, admPrilVO.getAdmPrilStatus());		
 		pstmt.executeUpdate();
+		
 	}  catch (SQLException se) {
 		throw new RuntimeException("A database error occured. "
 				+ se.getMessage());
@@ -80,13 +87,15 @@ public void update(AdmPrilVO admPrilVO) {
 		con = ds.getConnection();
 		pstmt = con.prepareStatement(UPDATE);
 
-		pstmt.setInt(1, admPrilVO.getAdmPrilID());
-		pstmt.setDate(2, admPrilVO.getAdmPrildate());
-		pstmt.setInt(3, admPrilVO.getAdmPrilStatus());
+		//UPDATE admPril set adminID=?, admPrildate=? ,admPrilStatus=? where admPrilID=?
 		
+		pstmt.setInt(1, admPrilVO.getAdminID());
+		pstmt.setTimestamp(2, admPrilVO.getAdmPrildate());
+		pstmt.setInt(3, admPrilVO.getAdmPrilStatus());
+		pstmt.setInt(4, admPrilVO.getAdmPrilID());
 	
 		pstmt.executeUpdate();
-	}  catch (SQLException se) {
+	} catch (SQLException se) {
 		throw new RuntimeException("A database error occured. "
 				+ se.getMessage());
 		// Clean up JDBC resources
@@ -109,7 +118,7 @@ public void update(AdmPrilVO admPrilVO) {
 }
 
 @Override
-public void delete(Integer admPriladminID) {
+public void delete(Integer admPrilID) {
 	// TODO Auto-generated method stub
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -119,7 +128,7 @@ public void delete(Integer admPriladminID) {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, admPriladminID);
+			pstmt.setInt(1, admPrilID);
 
 			pstmt.executeUpdate();
 		}  catch (SQLException se) {
@@ -145,7 +154,7 @@ public void delete(Integer admPriladminID) {
 }
 
 @Override
-public AdmPrilVO findByPrimaryKey(Integer admPriladminID) {
+public AdmPrilVO findByPrimaryKey(Integer admPrilID) {
 	// TODO Auto-generated method stub
 	AdmPrilVO admPrilVO = null;
 	Connection con = null;
@@ -157,22 +166,22 @@ public AdmPrilVO findByPrimaryKey(Integer admPriladminID) {
 		con = ds.getConnection();
 		pstmt = con.prepareStatement(GET_ONE_STMT);
 
-		pstmt.setInt(1, admPriladminID);
+		pstmt.setInt(1, admPrilID);
 
 		rs = pstmt.executeQuery();
 
 		while (rs.next()) {
 			// empVo �]�٬� Domain objects
 			admPrilVO = new AdmPrilVO();
-			admPrilVO.setAdmPriladminID(rs.getInt("admPriladminID"));
-			admPrilVO.setAdmPrilID(rs.getInt("admPrilId"));
-			admPrilVO.setAdmPrildate(rs.getDate("admPrildate"));
+			admPrilVO.setAdmPrilID(rs.getInt("admPrilID"));
+			admPrilVO.setAdminID(rs.getInt("adminID"));
+			admPrilVO.setAdmPrildate(rs.getTimestamp("admPrildate"));
 			admPrilVO.setAdmPrilStatus(rs.getInt("admPrilStatus"));
 		
 		}
 
 		// Handle any driver errors
-	} catch (SQLException se) {
+	}  catch (SQLException se) {
 		throw new RuntimeException("A database error occured. "
 				+ se.getMessage());
 		// Clean up JDBC resources
@@ -213,16 +222,16 @@ public List<AdmPrilVO> getAll() {
 
 	try {
 
-	
+		con = ds.getConnection();
 		pstmt = con.prepareStatement(GET_ALL_STMT);
 		rs = pstmt.executeQuery();
 
 		while (rs.next()) {
 			// empVO �]�٬� Domain objects
 			admPrilVO = new AdmPrilVO();
-			admPrilVO.setAdmPriladminID(rs.getInt("adminPriladminID"));
 			admPrilVO.setAdmPrilID(rs.getInt("admPrilID"));
-			admPrilVO.setAdmPrildate(rs.getDate("admPrildate"));
+			admPrilVO.setAdminID(rs.getInt("adminID"));
+			admPrilVO.setAdmPrildate(rs.getTimestamp("admPrildate"));
 			admPrilVO.setAdmPrilStatus(rs.getInt("admPrilStatus"));
 			
 			list.add(admPrilVO); // Store the row in the list
@@ -258,49 +267,4 @@ public List<AdmPrilVO> getAll() {
 	}
 	return list;
 }
-public static void main(String[] args) {
-
-	AdmPrilJDBCDAO dao = new AdmPrilJDBCDAO();
-
-	// �s�W
-	AdmPrilVO admPrilVO1 = new AdmPrilVO();
-	admPrilVO1.setAdmPrilID(1);
-	admPrilVO1.setAdmPrildate(java.sql.Date.valueOf("2005-01-01"));
-	admPrilVO1.setAdmPrilStatus(1);
-	
-	dao.insert(admPrilVO1);
-
-	// �ק�
-	AdmPrilVO admPrilVO2 = new AdmPrilVO();
-	admPrilVO2.setAdmPriladminID(1);
-	admPrilVO2.setAdmPrilID(2);
-	admPrilVO2.setAdmPrildate(java.sql.Date.valueOf("2005-01-01"));
-	admPrilVO2.setAdmPrilStatus(2);
-	dao.update(admPrilVO2);
-
-	// �R��
-	dao.delete(1);
-
-	// �d��
-	AdmPrilVO admPrilVO3 = dao.findByPrimaryKey(1);
-	System.out.print(admPrilVO3.getAdmPriladminID() + ",");
-	System.out.print(admPrilVO3.getAdmPrilID() + ",");
-	System.out.print(admPrilVO3.getAdmPrildate() + ",");
-	System.out.print(admPrilVO3.getAdmPrilStatus() + ",");
-	
-	System.out.println("---------------------");
-
-	// �d��
-	List<AdmPrilVO> list = dao.getAll();
-	for (AdmPrilVO aAdmPril : list) {
-		System.out.print(aAdmPril.getAdmPriladminID() + ",");
-		System.out.print(aAdmPril.getAdmPrilID() + ",");
-		System.out.print(aAdmPril.getAdmPrildate() + ",");
-		System.out.print(aAdmPril.getAdmPrilStatus() + ",");
-		
-		System.out.println();
-	}
 }
-}
-
-

@@ -1,30 +1,31 @@
-package com.admPrilType.model;
-
-import java.util.*;
-
-import com.admin.model.AdminVO;
+package com.FAQ.model;
 
 import java.sql.*;
 
-public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
+import java.util.*;
+
+
+public class FAQJDBADAO implements FAQDAO_interface{
+	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "servlet";
 	String passwd = "123";
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO admPrilType (admPrilID,admPrilTypeName,admPrilTypeStatus) VALUES ( ?, ?, ?)";
+		"INSERT INTO faq(faqID,faqTitle,faqContent,faqDate) VALUES ( ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT admPrilID,admPrilTypeName,admPrilTypeStatus FROM admPrilType order by admPrilID";
+		"SELECT faqID,faqTitle,faqContent,to_char(faqDate,'yyyy-mm-dd hh:mm:ss')faqDate FROM faq order by faqID";
 	private static final String GET_ONE_STMT = 
-		"SELECT admPrilID,admPrilTypeName,admPrilTypeStatus FROM admPrilType where admPrilID = ?";
+		"SELECT faqID,faqTitle,faqContent,to_char(faqDate,'yyyy-mm-dd hh:mm:ss')faqDate FROM faq where faqID = ?";
 	private static final String DELETE = 
-		"DELETE FROM admPrilType where admPrilID = ?";
+		"DELETE FROM faq where faqID = ?";
 	private static final String UPDATE = 
-		"UPDATE admPrilType set admPrilTypeName=?, admPrilTypeStatus=? where admPrilID = ?";
+		"UPDATE faq set faqTitle=?, faqContent=?, faqDate=? where faqID = ?";
+
 	@Override
-	public void insert(AdmPrilTypeVO admPrilTypeVO) {
-		// TODO Auto-generated method stub
+	public void insert(FAQVO faqVO) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -33,10 +34,12 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-				//admPrilID,admPrilTypeName,admPrilTypeStatus)
-			pstmt.setInt(1, admPrilTypeVO.getAdmPrilID());
-			pstmt.setString(2, admPrilTypeVO.getAdmPrilTypeName());
-			pstmt.setInt(3, admPrilTypeVO.getAdmPrilTypeStatus());		
+			
+//			faqID,faqTitle,faqContent
+			pstmt.setInt(1, faqVO.getFAQID());
+			pstmt.setString(2, faqVO.getFAQTitle());
+			pstmt.setString(3, faqVO.getFAQContent());
+			pstmt.setTimestamp(4, faqVO.getFAQDate());			
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -66,9 +69,10 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 		}
 
 	}
+
 	@Override
-	public void update(AdmPrilTypeVO admPrilTypeVO) {
-		// TODO Auto-generated method stub
+	public void update(FAQVO faqVO) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -77,11 +81,11 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
-			//admPrilType set admPrilTypeName=?, admPrilTypeStatus=? where admPrilID 
-			pstmt.setString(1, admPrilTypeVO.getAdmPrilTypeName());
-			pstmt.setInt(2, admPrilTypeVO.getAdmPrilTypeStatus());
-			pstmt.setInt(3, admPrilTypeVO.getAdmPrilID());
 
+			pstmt.setString(1, faqVO.getFAQTitle());
+			pstmt.setString(2, faqVO.getFAQContent());
+			pstmt.setTimestamp(3, faqVO.getFAQDate());
+			pstmt.setInt(4, faqVO.getFAQID());			
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -112,11 +116,9 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 
 	}
 
-		
-	
 	@Override
-	public void delete(Integer admPrilID) {
-		// TODO Auto-generated method stub
+	public void delete(Integer faqID) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -126,7 +128,7 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, admPrilID);
+			pstmt.setInt(1, faqID);
 
 			pstmt.executeUpdate();
 
@@ -157,11 +159,11 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 		}
 
 	}
-	
+
 	@Override
-	public AdmPrilTypeVO findByPrimaryKey(Integer admPrilID) {
-		// TODO Auto-generated method stub
-		AdmPrilTypeVO admPrilTypeVO = null;
+	public FAQVO findByPrimaryKey(Integer faqID) {
+
+		FAQVO faqVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -172,18 +174,19 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, admPrilID);
+			pstmt.setInt(1, faqID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
-				admPrilTypeVO = new AdmPrilTypeVO();
-				admPrilTypeVO.setAdmPrilID(rs.getInt("admPrilID"));
-				admPrilTypeVO.setAdmPrilTypeName(rs.getString("admPrilTypeName"));
-				admPrilTypeVO.setAdmPrilTypeStatus(rs.getInt("admPrilTypeStatus"));
+				faqVO = new FAQVO();
+				faqVO.setFAQID(rs.getInt("faqID"));
+				faqVO.setFAQTitle(rs.getString("faqTitle"));
+				faqVO.setFAQContent(rs.getString("faqContent"));
+				faqVO.setFAQDate(rs.getTimestamp("faqDate"));
 				
-				
+		
 			}
 
 			// Handle any driver errors
@@ -218,13 +221,13 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 				}
 			}
 		}
-		return admPrilTypeVO;
+		return faqVO;
 	}
+
 	@Override
-	public List<AdmPrilTypeVO> getAll() {
-		// TODO Auto-generated method stub
-		List<AdmPrilTypeVO> list = new ArrayList<AdmPrilTypeVO>();
-		AdmPrilTypeVO admPrilTypeVO = null;
+	public List<FAQVO> getAll() {
+		List<FAQVO> list = new ArrayList<FAQVO>();
+		FAQVO faqVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -236,15 +239,17 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-			
-	
+
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
-				admPrilTypeVO = new AdmPrilTypeVO();
-				admPrilTypeVO.setAdmPrilID(rs.getInt("admPrilID"));
-				admPrilTypeVO.setAdmPrilTypeName(rs.getString("admPrilTypeName"));
-				admPrilTypeVO.setAdmPrilTypeStatus(rs.getInt("admPrilTypeStatus"));				
-				list.add(admPrilTypeVO); // Store the row in the list
+				faqVO = new FAQVO();
+				faqVO.setFAQID(rs.getInt("faqID"));
+				faqVO.setFAQTitle(rs.getString("faqTitle"));
+				faqVO.setFAQContent(rs.getString("faqContent"));
+				faqVO.setFAQDate(rs.getTimestamp("faqDate"));				
+				list.add(faqVO); // Store the row in the list
+				
+
 			}
 
 			// Handle any driver errors
@@ -284,43 +289,50 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 
 	public static void main(String[] args) {
 
-		AdmPrilTypeJDBCDAO dao = new AdmPrilTypeJDBCDAO();
+		FAQJDBADAO dao = new FAQJDBADAO();
 
-		// �s�
-//		AdmPrilTypeVO admPrilTypeVO1 = new AdmPrilTypeVO();
-//		admPrilTypeVO1.setAdmPrilID(18);
-//		admPrilTypeVO1.setAdmPrilTypeName("456");
-//		admPrilTypeVO1.setAdmPrilTypeStatus(1);
-//
-//		dao.insert(admPrilTypeVO1);
+		// �s�W
+//		FAQVO faqVO1 = new FAQVO();
+//		faqVO1.setFAQID(5);
+//		faqVO1.setFAQTitle("MANAGER");
+//		faqVO1.setFAQContent("456");
+//		faqVO1.setFAQDate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
+//		
+//		
+//		dao.insert(faqVO1);
 
 		// �ק�
-		AdmPrilTypeVO admPrilTypeVO2 = new AdmPrilTypeVO();
-		admPrilTypeVO2.setAdmPrilID(18);
-		admPrilTypeVO2.setAdmPrilTypeName("456");
-		admPrilTypeVO2.setAdmPrilTypeStatus(1);
+		FAQVO faqVO2 = new FAQVO();
+		faqVO2.setFAQID(5);
+		faqVO2.setFAQTitle("MANAGER");
+		faqVO2.setFAQContent("456");
+		faqVO2.setFAQDate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
 		
-		dao.update(admPrilTypeVO2);
+		dao.update(faqVO2);
 
 		// �R��
-	dao.delete(18);
+	//dao.delete(5);
 
 		// �d��
-		AdmPrilTypeVO admPrilTypeVO3 = dao.findByPrimaryKey(1);
-		System.out.print(admPrilTypeVO3.getAdmPrilID() + ",");
-		System.out.print(admPrilTypeVO3.getAdmPrilTypeName() + ",");
-		System.out.print(admPrilTypeVO3.getAdmPrilTypeStatus() + ",");
+		FAQVO faqVO3 = dao.findByPrimaryKey(2);
+		System.out.print(faqVO3.getFAQID() + ",");
+		System.out.print(faqVO3.getFAQTitle() + ",");
+		System.out.print(faqVO3.getFAQContent() + ",");
+		System.out.print(faqVO3.getFAQDate() + ",");
+		
 		
 		System.out.println("---------------------");
-//List<AdmPrilTypeVO> getAll(
+
 		// �d��
-		List<AdmPrilTypeVO> list = dao.getAll();
-		for (AdmPrilTypeVO aAdmPrilType : list) {
-			System.out.print(aAdmPrilType.getAdmPrilID() + ",");
-			System.out.print(aAdmPrilType.getAdmPrilTypeName() + ",");
-			System.out.print(aAdmPrilType.getAdmPrilTypeStatus() + ",");
+		List<FAQVO> list = dao.getAll();
+		for (FAQVO aFAQ : list) {
+			System.out.print(aFAQ.getFAQID() + ",");
+			System.out.print(aFAQ.getFAQTitle() + ",");
+			System.out.print(aFAQ.getFAQContent() + ",");
+			System.out.print(aFAQ.getFAQDate() + ",");
 			
 			System.out.println();
 		}
 	}
 }
+

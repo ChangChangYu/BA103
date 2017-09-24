@@ -1,7 +1,6 @@
-package com.Ann.model;
+package com.info.model;
 
 import java.sql.*;
-
 import java.util.*;
 
 import javax.naming.Context;
@@ -9,8 +8,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class AnnDAO implements AnnDAO_interface{
+public class InfoDAO implements InfoDAO_interface{
 
+	
 	private static DataSource ds = null;
 	static {
 		try {
@@ -21,21 +21,19 @@ public class AnnDAO implements AnnDAO_interface{
 		}
 	}
 	private static final String INSERT_STMT = 
-			"INSERT INTO ann (annID,adminID,annName,annContent,annDate) VALUES (annID_seq.NEXTVAL, ?, ?, ?, ?)";
+			"INSERT INTO info (infoID,infoName,infoContent) VALUES ( ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT annID,adminID,annName,annContent,to_char(annDate,'yyyy-mm-dd hh:mm:ss')annDate FROM ann order by annID";
+			"SELECT infoID,infoName,infoContent FROM info order by infoID";
 		private static final String GET_ONE_STMT = 
-			"SELECT annID,adminID,annName,annContent,to_char(annDate,'yyyy-mm-dd hh:mm:ss')annDate FROM ann where annID = ?";
+			"SELECT infoID,infoName,infoContent FROM info where infoID = ?";
 		private static final String DELETE = 
-			"DELETE FROM ann where annID = ?";
+			"DELETE FROM info where infoID = ?";
 		private static final String UPDATE = 
-			"UPDATE ann set adminID=?,annName=?,annContent=?,annDate=?  where annID = ?";
+			"UPDATE info set  infoName=?, infoContent=? where infoID =?";
 
-		
-		
 		@Override
-		public void insert(AnnVO annVO) {
-			// TODO Auto-generated method stub
+		public void insert(InfoVO infoVO) {
+
 			Connection con = null;
 			PreparedStatement pstmt = null;
 
@@ -44,16 +42,15 @@ public class AnnDAO implements AnnDAO_interface{
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(INSERT_STMT);
 
-				pstmt.setInt(1, annVO.getAdminID());
-				pstmt.setString(2, annVO.getAnnName());
-				pstmt.setString(3, annVO.getAnnContent());
-				pstmt.setTimestamp(4, annVO.getAnnDate());
+				pstmt.setInt(1, infoVO.getInfoID());
+				pstmt.setString(2, infoVO.getInfoName());
+				pstmt.setString(3, infoVO.getInfoContent());
 				
 
 				pstmt.executeUpdate();
 
 				// Handle any driver errors
-			} catch (SQLException se) {
+			}  catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 				// Clean up JDBC resources
@@ -77,8 +74,8 @@ public class AnnDAO implements AnnDAO_interface{
 		}
 
 		@Override
-		public void update(AnnVO annVO) {
-			// TODO Auto-generated method stub
+		public void update(InfoVO infoVO) {
+
 			Connection con = null;
 			PreparedStatement pstmt = null;
 
@@ -86,12 +83,50 @@ public class AnnDAO implements AnnDAO_interface{
 
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(UPDATE);
-				//adminID=?,annName=?,annContent=?,annDate=? 
-				pstmt.setInt(1, annVO.getAdminID());
-				pstmt.setString(2, annVO.getAnnName());
-				pstmt.setString(3, annVO.getAnnContent());
-				pstmt.setTimestamp(4, annVO.getAnnDate());
-				pstmt.setInt(5, annVO.getAnnID());
+
+				pstmt.setInt(3, infoVO.getInfoID());
+				pstmt.setString(1, infoVO.getInfoName());
+				pstmt.setString(2, infoVO.getInfoContent());
+				
+
+				pstmt.executeUpdate();
+
+				// Handle any driver errors
+			}  catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+
+		}
+
+		@Override
+		public void delete(Integer infoID) {
+
+			Connection con = null;
+			PreparedStatement pstmt = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(DELETE);
+
+				pstmt.setInt(1, infoID);
 
 				pstmt.executeUpdate();
 
@@ -118,76 +153,35 @@ public class AnnDAO implements AnnDAO_interface{
 			}
 
 		}
-		@Override
-		public void delete(Integer annID) {
-			// TODO Auto-generated method stub
-			
-			Connection con = null;
-			PreparedStatement pstmt = null;
-
-			try {
-
-			
-				pstmt = con.prepareStatement(DELETE);
-
-				pstmt.setInt(1, annID);
-
-				pstmt.executeUpdate();
-
-				// Handle any driver errors
-			}  catch (SQLException se) {
-				throw new RuntimeException("A database error occured. "
-						+ se.getMessage());
-				// Clean up JDBC resources
-			} finally {
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace(System.err);
-					}
-				}
-			}
-
-		}
 
 		@Override
-		public AnnVO findByPrimaryKey(Integer annID) {
-			// TODO Auto-generated method stub
-			AnnVO annVO = null;
+		public InfoVO findByPrimaryKey(Integer infoID) {
+
+			InfoVO infoVO = null;
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 
 			try {
 
-				
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ONE_STMT);
 
-				pstmt.setInt(1, annID);
+				pstmt.setInt(1, infoID);
 
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
 					// empVo �]�٬� Domain objects
-					annVO = new AnnVO();
-					annVO.setAnnID(rs.getInt(1));
-					annVO.setAdminID(rs.getInt(1));
-					annVO.setAnnContent(rs.getString("job"));
-					annVO.setAnnDate(rs.getTimestamp("hiredate"));
-					
+					infoVO = new InfoVO();
+					infoVO.setInfoID(rs.getInt("infoID"));
+					infoVO.setInfoName(rs.getString("infoName"));
+					infoVO.setInfoContent(rs.getString("infoContent"));
 					
 				}
 
 				// Handle any driver errors
-			}  catch (SQLException se) {
+			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 				// Clean up JDBC resources
@@ -214,13 +208,13 @@ public class AnnDAO implements AnnDAO_interface{
 					}
 				}
 			}
-			return annVO;
+			return infoVO;
 		}
+
 		@Override
-		public List<AnnVO> getAll() {
-			// TODO Auto-generated method stub
-			List<AnnVO> list = new ArrayList<AnnVO>();
-			AnnVO annVO = null;
+		public List<InfoVO> getAll() {
+			List<InfoVO> list = new ArrayList<InfoVO>();
+			InfoVO infoVO = null;
 
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -234,14 +228,12 @@ public class AnnDAO implements AnnDAO_interface{
 
 				while (rs.next()) {
 					// empVO �]�٬� Domain objects
-					annVO = new AnnVO();
-					annVO.setAnnID(rs.getInt(1));
-					annVO.setAdminID(rs.getInt(1));
-					annVO.setAnnName(rs.getString("job"));
-					annVO.setAnnContent(rs.getString("hiredate"));
-					annVO.setAnnDate(rs.getTimestamp("sal"));
+					infoVO = new InfoVO();
+					infoVO.setInfoID(rs.getInt("infoID"));
+					infoVO.setInfoName(rs.getString("infoName"));
+					infoVO.setInfoContent(rs.getString("infoContent"));
 					
-					list.add(annVO); // Store the row in the list
+					list.add(infoVO); // Store the row in the list
 				}
 
 				// Handle any driver errors
@@ -274,5 +266,4 @@ public class AnnDAO implements AnnDAO_interface{
 			}
 			return list;
 		}
-
 }

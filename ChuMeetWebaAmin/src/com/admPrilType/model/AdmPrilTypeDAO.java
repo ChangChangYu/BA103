@@ -1,7 +1,6 @@
 package com.admPrilType.model;
 
 import java.sql.*;
-
 import java.util.*;
 
 import javax.naming.Context;
@@ -19,17 +18,18 @@ public class AdmPrilTypeDAO implements AdmPrilTypeDAO_interface{
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-}
+	}
 	private static final String INSERT_STMT = 
-			"INSERT INTO admPrilType (admPrilID,admPrilTypeName,admPrilTypeStatu) VALUES ( ?, ?, ?)";
+			"INSERT INTO admPrilType (admPrilID,admPrilTypeName,admPrilTypeStatus) VALUES ( ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT admPrilID,admPrilTypeName,admPrilTypeStatu FROM admPrilType order by admPrilID";
+			"SELECT admPrilID,admPrilTypeName,admPrilTypeStatus FROM admPrilType order by admPrilID";
 		private static final String GET_ONE_STMT = 
-			"SELECT admPrilID,admPrilTypeName,admPrilTypeStatu FROM admPrilType where admPrilID = ?";
+			"SELECT admPrilID,admPrilTypeName,admPrilTypeStatus FROM admPrilType where admPrilID = ?";
 		private static final String DELETE = 
 			"DELETE FROM admPrilType where admPrilID = ?";
 		private static final String UPDATE = 
-			"UPDATE admPrilType set admPrilTypeName=?, admPrilTypeStatu=? where admPrilID = ?";
+			"UPDATE admPrilType set admPrilTypeName=?, admPrilTypeStatus=? where admPrilID = ?";
+		
 		@Override
 		public void insert(AdmPrilTypeVO admPrilTypeVO) {
 			// TODO Auto-generated method stub
@@ -40,15 +40,14 @@ public class AdmPrilTypeDAO implements AdmPrilTypeDAO_interface{
 
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(INSERT_STMT);
-
+					//admPrilID,admPrilTypeName,admPrilTypeStatus)
 				pstmt.setInt(1, admPrilTypeVO.getAdmPrilID());
 				pstmt.setString(2, admPrilTypeVO.getAdmPrilTypeName());
-				pstmt.setInt(3, admPrilTypeVO.getAdmPrilTypeStatu());
-			
+				pstmt.setInt(3, admPrilTypeVO.getAdmPrilTypeStatus());		
 				pstmt.executeUpdate();
 
 				// Handle any driver errors
-			}  catch (SQLException se) {
+			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 				// Clean up JDBC resources
@@ -80,15 +79,15 @@ public class AdmPrilTypeDAO implements AdmPrilTypeDAO_interface{
 
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(UPDATE);
-
+				//admPrilType set admPrilTypeName=?, admPrilTypeStatus=? where admPrilID 
 				pstmt.setString(1, admPrilTypeVO.getAdmPrilTypeName());
-				pstmt.setInt(2, admPrilTypeVO.getAdmPrilTypeStatu());
-				
+				pstmt.setInt(2, admPrilTypeVO.getAdmPrilTypeStatus());
+				pstmt.setInt(3, admPrilTypeVO.getAdmPrilID());
 
 				pstmt.executeUpdate();
 
 				// Handle any driver errors
-			} catch (SQLException se) {
+			}  catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 				// Clean up JDBC resources
@@ -172,9 +171,9 @@ public class AdmPrilTypeDAO implements AdmPrilTypeDAO_interface{
 				while (rs.next()) {
 					// empVo �]�٬� Domain objects
 					admPrilTypeVO = new AdmPrilTypeVO();
-					admPrilTypeVO.setAdmPrilID(rs.getInt(1));
-					admPrilTypeVO.setAdmPrilTypeName(rs.getString("ename"));
-					admPrilTypeVO.setAdmPrilTypeStatu(rs.getInt(1));
+					admPrilTypeVO.setAdmPrilID(rs.getInt("admPrilID"));
+					admPrilTypeVO.setAdmPrilTypeName(rs.getString("admPrilTypeName"));
+					admPrilTypeVO.setAdmPrilTypeStatus(rs.getInt("admPrilTypeStatus"));
 					
 					
 				}
@@ -224,14 +223,14 @@ public class AdmPrilTypeDAO implements AdmPrilTypeDAO_interface{
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ALL_STMT);
 				rs = pstmt.executeQuery();
-
+				
+		
 				while (rs.next()) {
 					// empVO �]�٬� Domain objects
 					admPrilTypeVO = new AdmPrilTypeVO();
-					admPrilTypeVO.setAdmPrilID(rs.getInt(1));
-					admPrilTypeVO.setAdmPrilTypeName(rs.getString("ename"));
-					admPrilTypeVO.setAdmPrilTypeStatu(rs.getInt(1));
-					
+					admPrilTypeVO.setAdmPrilID(rs.getInt("admPrilID"));
+					admPrilTypeVO.setAdmPrilTypeName(rs.getString("admPrilTypeName"));
+					admPrilTypeVO.setAdmPrilTypeStatus(rs.getInt("admPrilTypeStatus"));				
 					list.add(admPrilTypeVO); // Store the row in the list
 				}
 
@@ -266,45 +265,4 @@ public class AdmPrilTypeDAO implements AdmPrilTypeDAO_interface{
 			return list;
 		}
 
-		public static void main(String[] args) {
-
-			AdmPrilTypeJDBCDAO dao = new AdmPrilTypeJDBCDAO();
-
-			// �s�W
-			AdmPrilTypeVO admPrilTypeVO1 = new AdmPrilTypeVO();
-			admPrilTypeVO1.setAdmPrilTypeName("�d�ç�1");
-			admPrilTypeVO1.setAdmPrilTypeStatu(1);
-			
-			dao.insert(admPrilTypeVO1);
-
-			// �ק�
-			AdmPrilTypeVO admPrilTypeVO2 = new AdmPrilTypeVO();
-			admPrilTypeVO2.setAdmPrilID(1);
-			admPrilTypeVO2.setAdmPrilTypeName("�d�ç�1");
-			admPrilTypeVO2.setAdmPrilTypeStatu(1);
-			
-			dao.update(admPrilTypeVO2);
-
-			// �R��
-			dao.delete(1);
-
-			// �d��
-			AdmPrilTypeVO admPrilTypeVO3 = dao.findByPrimaryKey(1);
-			System.out.print(admPrilTypeVO3.getAdmPrilID() + ",");
-			System.out.print(admPrilTypeVO3.getAdmPrilTypeName() + ",");
-			System.out.print(admPrilTypeVO3.getAdmPrilTypeStatu() + ",");
-			
-			System.out.println("---------------------");
-
-			// �d��
-			List<AdmPrilTypeVO> list = dao.getAll();
-			for (AdmPrilTypeVO aAdmPrilType : list) {
-				System.out.print(aAdmPrilType.getAdmPrilID() + ",");
-				System.out.print(aAdmPrilType.getAdmPrilTypeName() + ",");
-				System.out.print(aAdmPrilType.getAdmPrilTypeStatu() + ",");
-				
-				
-				System.out.println();
-			}
-		}
-	}
+}

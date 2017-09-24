@@ -3,21 +3,20 @@ package com.admPrilType.model;
 import java.util.List;
 
 
-
 public class AdmPrilTypeService {
-
 	private AdmPrilTypeDAO_interface dao;
 
 	public AdmPrilTypeService() {
 		dao = new AdmPrilTypeDAO();
 	}
 
-	public AdmPrilTypeVO addAdmPrilType(String admPrilTypeName, Integer admPrilTypeStatu) {
+	public AdmPrilTypeVO addAdmPrilType(String admPrilTypeName, Integer admPrilTypeStatus) {
 
 		AdmPrilTypeVO admPrilTypeVO = new AdmPrilTypeVO();
 
 		admPrilTypeVO.setAdmPrilTypeName(admPrilTypeName);
-		admPrilTypeVO.setAdmPrilTypeStatu(admPrilTypeStatu);
+		admPrilTypeVO.setAdmPrilTypeStatus(admPrilTypeStatus);
+		
 		dao.insert(admPrilTypeVO);
 
 		return admPrilTypeVO;
@@ -28,14 +27,13 @@ public class AdmPrilTypeService {
 		dao.insert(admPrilTypeVO);
 	}
 	
-	public AdmPrilTypeVO updateAdmPrilType(Integer admPrilID, String admPrilTypeName, Integer admPrilTypeStatu) {
+	public AdmPrilTypeVO updateAdmPrilType(Integer admPrilID,String admPrilTypeName, Integer admPrilTypeStatus) {
 
 		AdmPrilTypeVO admPrilTypeVO = new AdmPrilTypeVO();
 
 		admPrilTypeVO.setAdmPrilID(admPrilID);
 		admPrilTypeVO.setAdmPrilTypeName(admPrilTypeName);
-		admPrilTypeVO.setAdmPrilTypeStatu(admPrilTypeStatu);
-		
+		admPrilTypeVO.setAdmPrilTypeStatus(admPrilTypeStatus);
 		
 		dao.update(admPrilTypeVO);
 
@@ -59,4 +57,5 @@ public class AdmPrilTypeService {
 		return dao.getAll();
 	}
 }
+
 

@@ -15,9 +15,9 @@ public class AnnJDBCDAO implements AnnDAO_interface{
 	private static final String INSERT_STMT = 
 		"INSERT INTO ann (annID,adminID,annName,annContent,annDate) VALUES (annID_seq.NEXTVAL, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT annID,adminID,annName,annContent,to_char(hiredate,'yyyy-mm-dd')annDate FROM ann order by annID";
+		"SELECT annID,adminID,annName,annContent,to_char(annDate,'yyyy-mm-dd hh:mm:ss')annDate FROM ann order by annID";
 	private static final String GET_ONE_STMT = 
-		"SELECT annID,adminID,annName,annContent,to_char(hiredate,'yyyy-mm-dd')annDate FROM ann where annID = ?";
+		"SELECT annID,adminID,annName,annContent,to_char(annDate,'yyyy-mm-dd hh:mm:ss')annDate FROM ann where annID = ?";
 	private static final String DELETE = 
 		"DELETE FROM ann where annID = ?";
 	private static final String UPDATE = 
@@ -84,12 +84,12 @@ public class AnnJDBCDAO implements AnnDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
-
+			//adminID=?,annName=?,annContent=?,annDate=? 
 			pstmt.setInt(1, annVO.getAdminID());
 			pstmt.setString(2, annVO.getAnnName());
 			pstmt.setString(3, annVO.getAnnContent());
 			pstmt.setTimestamp(4, annVO.getAnnDate());
-			pstmt.setInt(4, annVO.getAnnID());
+			pstmt.setInt(5, annVO.getAnnID());
 
 			pstmt.executeUpdate();
 
@@ -298,29 +298,29 @@ public class AnnJDBCDAO implements AnnDAO_interface{
 
 		// �s�W
 		AnnVO annVO1 = new AnnVO();
-		annVO1.setAdminID(1);
+		annVO1.setAdminID(2);
 		annVO1.setAnnName("MANAGER");
 		annVO1.setAnnContent("MANAGER");
-		annVO1.setAnnDate(java.sql.Timestamp.valueOf("2005-01-01"));
+		annVO1.setAnnDate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
 		
 		dao.insert(annVO1);
 
 		// �ק�
 		AnnVO annVO2 = new AnnVO();
-		annVO2.setAnnID(1);
+		annVO2.setAnnID(2);
 		annVO2.setAdminID(1);
 		annVO2.setAnnName("MANAGER2");
 		annVO2.setAnnContent("MANAGER2");
-		annVO2.setAnnDate(java.sql.Timestamp.valueOf("2002-01-01"));
+		annVO2.setAnnDate(java.sql.Timestamp.valueOf("2002-01-01 10:10:10"));
 		
 		
 		dao.update(annVO2);
 
 		// �R��
-		dao.delete(1);
-
+//		dao.delete(1);
+		//adminID=?,annName=?,annContent=?,annDate=? 
 		// �d��
-		AnnVO annVO3 = dao.findByPrimaryKey(7001);
+		AnnVO annVO3 = dao.findByPrimaryKey(1);
 		System.out.print(annVO3.getAnnID() + ",");
 		System.out.print(annVO3.getAdminID() + ",");
 		System.out.print(annVO3.getAnnName() + ",");

@@ -6,8 +6,8 @@ public class FAQVO implements java.io.Serializable {
 
 	private Integer FAQID;
 	private String FAQTitle;
-	private String FAQComtent;
-	private Timestamp FAQdate;
+	private String FAQContent;
+	private Timestamp FAQDate;
 	public Integer getFAQID() {
 		return FAQID;
 	}
@@ -20,17 +20,17 @@ public class FAQVO implements java.io.Serializable {
 	public void setFAQTitle(String fAQTitle) {
 		FAQTitle = fAQTitle;
 	}
-	public String getFAQComtent() {
-		return FAQComtent;
+	public String getFAQContent() {
+		return FAQContent;
 	}
-	public void setFAQComtent(String fAQComtent) {
-		FAQComtent = fAQComtent;
+	public void setFAQContent(String fAQComtent) {
+		FAQContent = fAQComtent;
 	}
-	public Timestamp getFAQdate() {
-		return FAQdate;
+	public Timestamp getFAQDate() {
+		return FAQDate;
 	}
-	public void setFAQdate(Timestamp fAQdate) {
-		FAQdate = fAQdate;
+	public void setFAQDate(Timestamp fAQdate) {
+		FAQDate = fAQdate;
 	}
 	
 	
