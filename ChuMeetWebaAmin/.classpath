@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_131">
+	<classpathentry excluding="com/info/model/|com/info/|com/info/model/|com/" kind="src" path="src"/>
+	<classpathentry kind="src" path="src/com/info/model"/>
+	<classpathentry excluding="info/model/" kind="src" path="src/com"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_111">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
