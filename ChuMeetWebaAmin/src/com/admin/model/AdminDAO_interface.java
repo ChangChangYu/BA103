@@ -7,6 +7,9 @@ public interface AdminDAO_interface {
 	public void update(AdminVO adminVO);
 	public void delete(Integer adminID);
 	public AdminVO findByPrimaryKey(Integer adminID);
+	
+	public AdminVO findByAdminName(String adminName);
+	
 	public List<AdminVO> getAll();
 	
 }

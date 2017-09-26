@@ -65,4 +65,8 @@ public class AdminService {
 	public List<AdminVO> getAll() {
 		return dao.getAll();
 	}
+	public AdminVO getAdminByAdminName(String adminName){
+		return dao.findByAdminName(adminName);
+	}
+	
 }
