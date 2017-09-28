@@ -35,35 +35,38 @@
 				<span id="logo"></span>
 			</h1>
 		</div>
-		<from class="form-horizontal" method="post"
-			ACTION="<%=request.getContextPath()%>/back-end/admin/adminLogin.do">
+		<form class="form-horizontal" method="post"
+			ACTION="<%=request.getContextPath()%>/Back-end/BackLogin.do">
 		<div class="login-box animated fadeInUp">
 			<div class="box-header">
 				<h2>後端登入</h2>
 			</div>
 			<div class="form-group">
-				<label for="username">帳號</label> <br />
-
-				<placeholder ="帳號" name="adminName" value="${param.adminName}">
-				<i class="fa fa-user"></i>
+				<label for="username">帳號</label>
+				<input type="text" placeholder ="帳號" name="adminName">
 			</div>
-			<br />
+			
 			<div class="form-group help">
 				<label for="password">密碼</label>
-
-				<placeholder ="密碼" name="adminPw" value="${param.adminPW}">
-				<i class="fa fa-fa-lock"></i> <a href="admin_admin.html" class=""></a>
+				<input type="password" placeholder ="密碼" name="adminPW">
+				
 			</div>
 			<div>
+			
 
-				<br /> <input type="password" id="password"> <br />
-				<button type="submit">確認</button>
-
+				<c:if test="${not empty errorMsgs}">
+					<font color='red'><c:forEach var="message"
+							items="${errorMsgs}">
+						</c:forEach> </font>
+					<H5>${message}</H5>
+				</c:if>
+				<input type="submit" value="登入">
+				
 
 				<br />
 			</div>
 		</div>
-		</from>
+		</form>
 
 	</div>
 </body>

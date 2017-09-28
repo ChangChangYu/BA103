@@ -11,7 +11,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "servlet";
-	String passwd = "123";
+	String passwd = "123456";
 
 	private static final String INSERT_STMT =
 			"INSERT INTO admin (adminID,adminName,adminMail,adminPW,adminEmail,adminDate,adminStatus) VALUES (adminID_SEQ.NEXTVAL,?,?,?,?,?,?)";
@@ -339,6 +339,13 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 				}
 		}
 		}
+	}
+
+
+	@Override
+	public AdminVO findByAdminName(String adminName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

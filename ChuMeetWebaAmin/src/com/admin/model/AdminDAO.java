@@ -27,6 +27,9 @@ public class AdminDAO implements AdminDAO_interface{
 			"SELECT adminID,adminName,adminMail,adminPW,adminEmail,to_char(adminDate,'yyyy-mm-dd hh:mm:ss')adminDate,adminStatus FROM admin order by adminID";
 	private static final String GET_ONE_STMT=
 			"SELECT adminID,adminName,adminMail,adminPW,adminEmail,to_char(adminDate,'yyyy-mm-dd hh:mm:ss')adminDate,adminStatus FROM admin where adminID=?";
+			//新增FindByAdminName的收尋條件
+	private static final String GET_ONE_STMT_NAME=
+			"SELECT adminID,adminName,adminMail,adminPW,adminEmail,to_char(adminDate,'yyyy-mm-dd hh:mm:ss')adminDate,adminStatus FROM admin where adminName=?";
 	private static final String DELETE =
 			"DELETE FROM admin where adminID=?";
 	private static final String UPDATE =
@@ -267,6 +270,62 @@ public class AdminDAO implements AdminDAO_interface{
 				}
 		}
 		}
+	}
+
+
+	@Override
+	public AdminVO findByAdminName(String adminName) {
+		AdminVO adminVO=null;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try{
+			con = ds.getConnection();
+										//新增的收尋條件
+			pstmt =con.prepareStatement(GET_ONE_STMT_NAME);
+			
+			pstmt.setString(1, adminName);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()){
+				adminVO=new AdminVO();
+				adminVO.setAdminID(rs.getInt("adminID"));
+				adminVO.setAdminName(rs.getString("adminName"));
+				adminVO.setAdminMail(rs.getString("adminMail"));
+				adminVO.setAdminPW(rs.getString("adminPW"));
+				adminVO.setAdminEmail(rs.getString("adminEmail"));
+				adminVO.setAdminDate(rs.getTimestamp("adminDate"));
+				adminVO.setAdminStatus(rs.getInt("adminStatus"));
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally{
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return adminVO;
+		
 	}
 	
 	
