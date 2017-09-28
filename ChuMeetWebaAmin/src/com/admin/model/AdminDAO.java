@@ -24,12 +24,11 @@ public class AdminDAO implements AdminDAO_interface{
 	private static final String INSERT_STMT =
 			"INSERT INTO admin (adminID,adminName,adminMail,adminPW,adminEmail,adminDate,adminStatus) VALUES (adminID_SEQ.NEXTVAL,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT adminID,adminName,adminMail,adminPW,adminEmail,to_char(adminDate,'yyyy-mm-dd hh:mm:ss')adminDate,adminStatus FROM admin order by adminID";
+			"SELECT adminID,adminName,adminMail,adminEmail,adminDate,adminStatus FROM admin order by adminID";
 	private static final String GET_ONE_STMT=
-			"SELECT adminID,adminName,adminMail,adminPW,adminEmail,to_char(adminDate,'yyyy-mm-dd hh:mm:ss')adminDate,adminStatus FROM admin where adminID=?";
-			//新增FindByAdminName的收尋條件
+			"SELECT adminID,adminName,adminMail,adminEmail,adminDate,adminStatus FROM admin where adminID=?";
 	private static final String GET_ONE_STMT_NAME=
-			"SELECT adminID,adminName,adminMail,adminPW,adminEmail,to_char(adminDate,'yyyy-mm-dd hh:mm:ss')adminDate,adminStatus FROM admin where adminName=?";
+			"SELECT adminID,adminName,adminMail,adminPW,adminEmail,adminDate,adminStatus FROM admin where adminName=?";
 	private static final String DELETE =
 			"DELETE FROM admin where adminID=?";
 	private static final String UPDATE =
@@ -193,7 +192,6 @@ public class AdminDAO implements AdminDAO_interface{
 				adminVO.setAdminID(rs.getInt("adminID"));
 				adminVO.setAdminName(rs.getString("adminName"));
 				adminVO.setAdminMail(rs.getString("adminMail"));
-				adminVO.setAdminPW(rs.getString("adminPW"));
 				adminVO.setAdminEmail(rs.getString("adminEmail"));
 				adminVO.setAdminDate(rs.getTimestamp("adminDate"));
 				adminVO.setAdminStatus(rs.getInt("adminStatus"));
@@ -282,7 +280,7 @@ public class AdminDAO implements AdminDAO_interface{
 		
 		try{
 			con = ds.getConnection();
-										//新增的收尋條件
+										//�憓�撠�辣
 			pstmt =con.prepareStatement(GET_ONE_STMT_NAME);
 			
 			pstmt.setString(1, adminName);

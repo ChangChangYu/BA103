@@ -51,9 +51,7 @@ public class BackLogin extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-	
-		
+			
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=UTF-8");
 		List<String> errorMsgs = new LinkedList<String>();

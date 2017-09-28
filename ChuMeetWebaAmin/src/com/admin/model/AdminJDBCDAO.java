@@ -241,7 +241,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 
 		AdminJDBCDAO dao = new AdminJDBCDAO();
 
-		// �s�W
+		// 嚙編嚙磕
 //		AdminVO adminVO1 = new AdminVO();
 //		adminVO1.setAdminID(4);
 //		adminVO1.setAdminName("123");
@@ -255,7 +255,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 
 		
 //		adminID=? ,adminName=?, adminMail=?,adminPW=?,adminEmail=?,adminDate=?,adminStatus=?
-//		// �ק�
+//		// 嚙論改蕭
 		AdminVO adminVO2 = new AdminVO();
 		adminVO2.setAdminID(13);
 		adminVO2.setAdminName("123");
@@ -266,10 +266,10 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 		adminVO2.setAdminStatus(1);
 		dao.update(adminVO2);
 
-		// �R��
+		// 嚙磋嚙踝蕭
 			dao.delete(13);
 //
-//		// �d��
+//		// 嚙範嚙踝蕭
 		AdminVO adminVO3 = dao.findByPrimaryKey(1);
 		System.out.print(adminVO3.getAdminID()+ ",");
 		System.out.print(adminVO3.getAdminName() + ",");
@@ -281,7 +281,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 		
 		System.out.println("---------------------");
 
-		// �d��
+		// 嚙範嚙踝蕭
 		List<AdminVO> list = dao.getAll();
 		for (AdminVO aAdmin : list) {
 			System.out.print(aAdmin.getAdminID() + ",");
