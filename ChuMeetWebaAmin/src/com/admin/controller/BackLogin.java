@@ -23,16 +23,30 @@ public class BackLogin extends HttpServlet {
 	 */
 	protected boolean BackLogin(String adminName,String adminPW) {
 		AdminService adminSvc = new AdminService();
-
-		AdminVO adminNameVO = adminSvc.getAdminByAdminName(adminName);
-//		                印出JSP有沒有送東西過來,或者有沒有取到值		
-//		System.out.println(adminNameVO.getAdminName());
-//		System.out.println(adminNameVO.getAdminPW());
-		if (adminName.equals(adminNameVO.getAdminName()) && adminPW.equals(adminNameVO.getAdminPW()))			
+		List<AdminVO> adminList = adminSvc.getAll();
+		//帳號是否存在資料庫裡
+		Boolean isAdminName = false;
+		Boolean isAdminPw = false;
+		//從資料庫裡撈出所有管理員帳號一筆一筆比對
+		for (AdminVO adminVO : adminList) {
+			String serverAdminName = adminVO.getAdminName().toString();
+			if(adminName.equals(serverAdminName))
+				isAdminName=true;
+			//存在的話boolean為true
+		}
+			if(isAdminName){
+				AdminVO adminVO = adminSvc.getAdminByAdminName(adminName);
+				if(adminPW.equals(adminVO.getAdminPW()))
+					isAdminPw=true;
+			}
+			System.out.println("您輸入帳號"+adminName);
+			System.out.println("您輸入密碼"+adminPW);
+			System.out.println("帳號過不過"+isAdminName);
+			System.out.println("密碼過不過"+isAdminPw);
+		if(isAdminName&&isAdminPw)
 			return true;
-		 else
+		else
 			return false;
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -55,13 +69,13 @@ public class BackLogin extends HttpServlet {
 			errorMsgs.add("錯誤");
 		}
 		if (!errorMsgs.isEmpty()) {
-			RequestDispatcher failureView = req.getRequestDispatcher("backlogin.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("backLogin.jsp");
 			failureView.forward(req, res);
 			return;
 		}
 		if (!BackLogin(adminName, adminPW)) {
 			errorMsgs.add("帳號,密碼");
-			RequestDispatcher failureView = req.getRequestDispatcher("backlogin.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("backLogin.jsp");
 			failureView.forward(req, res);
 			return;
 		} else {
@@ -79,7 +93,7 @@ public class BackLogin extends HttpServlet {
 				}
 			} catch (Exception ignored) {
 			}
-			res.sendRedirect(req.getContextPath() + "/Back-end/admin.jsp");
+			res.sendRedirect(req.getContextPath() + "/back-end/admin.jsp");
 
 		}
 	}

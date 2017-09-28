@@ -6,7 +6,6 @@
 <html>
 
 <head>
-<meta charset="utf-8">
 
 <title>ChuMeet_Back</title>
 
@@ -36,7 +35,7 @@
 			</h1>
 		</div>
 		<form class="form-horizontal" method="post"
-			ACTION="<%=request.getContextPath()%>/Back-end/BackLogin.do">
+			ACTION="<%=request.getContextPath()%>/back-end/backLogin.do">
 		<div class="login-box animated fadeInUp">
 			<div class="box-header">
 				<h2>後端登入</h2>

@@ -21,6 +21,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AdminLoginServlet</servlet-name>
-    <url-pattern>/back-end/BackLogin.do</url-pattern>
+    <url-pattern>/back-end/backLogin.do</url-pattern>
   </servlet-mapping>
 </web-app>
