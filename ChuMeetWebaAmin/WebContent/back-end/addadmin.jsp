@@ -2,13 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.admin.model.*"%>
-<%@ page import="com.admPril.model.*" %>
+<%@ page import="com.admPril.model.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
-	AdminService adminSvc = new AdminService();
-	List<AdminVO> list = adminSvc.getAll();
-	pageContext.setAttribute("list", list);
+	AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 %>
 
 <html>
@@ -80,16 +78,16 @@
 
 <body>
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font color='red'>請修正以下錯誤:
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li>${message}</li>
-		</c:forEach>
-	</ul>
-	</font>
-</c:if>
+	<%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font color='red'>請修正以下錯誤:
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li>${message}</li>
+				</c:forEach>
+			</ul>
+		</font>
+	</c:if>
 
 
 
@@ -231,48 +229,38 @@
 									<th class="col-md-1">信箱</th>
 									<th class="col-md-1">時間</th>
 									<th class="col-md-1">狀態</th>
-									<th class="col-md-1">修改</th>
-									<th class="col-md-1">暫停</th>
+								
 								</tr>
 							</thead>
 							<tbody>
 
-
-			
-	<c:forEach var="adminVO" items="${list}">
 								<tr>
-									<td>${adminVO.adminID}</td>
-									<td>${adminVO.adminName}</td>
-									<td>${adminVO.adminMail}</td>
-									<td>${adminVO.adminEmail}</td>
-									<td>${adminVO.adminDate}</td>
-									<td>${adminVO.adminStatus}</td>
-									
-									<td>
-											<FORM METHOD="post"ACTION="<%=request.getContextPath()%>/back-end/admin.do">											
-												<input type="submit" value="修改" class="btn btn-sm btn-warning"> 
-												
-												<input type="hidden" name="action" value="getOne_For_Update">
-												<input type="hidden" name="adminID" value="${adminVO.adminID}">
-											 </FORM>
-									</td>
-									<td>
-										<FORM METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/admin.do">
-											     <input type="submit" value="刪除" class="btn btn-danger btn-sm statbtn">							 
-												
-												 <input type="hidden" name="action" value="delete">
-												 <input type="hidden" name="adminID" value="${adminVO.adminID}">
-										</FORM>
-									</td>
-								</tr>
+									<td><input type="TEXT" name="adminID" size="25"
+										value="<%=(adminVO == null) ? " " : adminVO.getAdminID()%>" /></td>
 								
-						</c:forEach>
+									<td><input type="TEXT" name="adminName" size="25"
+										value="<%=(adminVO == null) ? " " : adminVO.getAdminName()%>" /></td>
+								
+									<td><input type="TEXT" name="adminMail" size="25"
+										value="<%=(adminVO == null) ? " " : adminVO.getAdminMail()%>" /></td>
+
+								
+									<td><input type="TEXT" name="adminEmail" size="25"
+										value="<%=(adminVO == null) ? " " : adminVO.getAdminEmail()%>" /></td>
+								
+									<td><input type="TEXT" name="adminDate" size="25"
+										value="<%=(adminVO == null) ? " " : adminVO.getAdminDate()%>" /></td>
+								
+								
+									<td><input type="TEXT" name="adminStatus" size="25"
+										value="<%=(adminVO == null) ? " " : adminVO.getAdminStatus()%>" /></td>
+								</tr>
 
 							</tbody>
 						</table>
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/admin.do">
-								<input type="submit" value="新增" class="btn btn-success">
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/back-end/admin.do">
+							<input type="submit" value="新增" class="btn btn-success">
 						</FORM>
 					</div>
 					<!--====================2nd-->
@@ -287,18 +275,18 @@
 												<th class="col-md-1">編號</th>
 												<th class="col-md-1">網頁管理</th>
 												<th class="col-md-1">姓名</th>
-												<th class="col-md-1">帳號</th>											
+												<th class="col-md-1">帳號</th>
 												<th class="col-md-1">權限</th>
 											</tr>
 										</thead>
 										<tbody>
-										
-										
-															
-											<tr>		
-												<td >編號</td>
-												<td >管理員管理</td>										
-												
+
+
+
+											<tr>
+												<td>編號</td>
+												<td>管理員管理</td>
+
 												<td>
 													<div class="checkbox">
 														<label> <input type="checkbox"
@@ -526,7 +514,7 @@
 												<td></td>
 											</tr>
 										</tbody>
-									
+
 									</table>
 									<button class="btn btn-success">新增</button>
 

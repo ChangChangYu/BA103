@@ -241,7 +241,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 
 		AdminJDBCDAO dao = new AdminJDBCDAO();
 
-		// 嚙編嚙磕
+//		 嚙編嚙磕
 //		AdminVO adminVO1 = new AdminVO();
 //		adminVO1.setAdminID(4);
 //		adminVO1.setAdminName("123");
@@ -267,7 +267,7 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 		dao.update(adminVO2);
 
 		// 嚙磋嚙踝蕭
-			dao.delete(13);
+	//		dao.delete(13);
 //
 //		// 嚙範嚙踝蕭
 		AdminVO adminVO3 = dao.findByPrimaryKey(1);

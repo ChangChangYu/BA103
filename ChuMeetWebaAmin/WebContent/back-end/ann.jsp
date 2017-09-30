@@ -1,6 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.Ann.model.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<%
+	AnnService annSvc = new AnnService();
+	List<AnnVO> list = annSvc.getAll();
+	pageContext.setAttribute("list", list);
+%>
 <html >
 
 <head>
@@ -177,33 +184,32 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr class="bg-danger">
-                                            <th class="col-md-1">管理員編號</th>
+                                           
+                                            <th class="col-md-1">公告編號</th>
                                             <th class="col-md-1">公告標題</th>
                                             <th class="col-md-1">公告內容</th>
                                             <th class="col-md-1">公告日期</th>
-                                            <th class="col-md-1">公告時間</th>
-                                            <th class="col-md-1">狀態</th>
+                                                                        
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach var="annVO" items="${list}">
                                         <tr>
-                                            <td>NO.1</td>
-                                            <td>多多參加</td>
-                                            <td>歡迎參加</td>
-                                            <td>2017.09.11</td>
-                                            <td></td>
+                                            <td>${AnnVO.annID}</td>
+                                            <td>${AnnVO.annName}</td>
+                                            <td>${AnnVO.annContent}</td>
+                                            <td>${AnnVO.annDate}</td>                                           
                                             <td>
+                                            <FORM METHOD="post"
+                                            	ACTTION="<%=request.getContextPath()%>"/back-end/ann.do>
+                                            		<input type="submit" value="修改" class="btn btn-danger btn-sm statbtn">
+                                            		<input type="hidden" name="rquestURL" value="<%=request.getServletPath()%>">
+                                            		<input type="hidden" name="action" value="">
                                                 <button class="btn btn-sm btn-warning">修改</button>
+                                            </FORM>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                       </c:forEach>
                                     </tbody>
                                 </table>
                                 <button class="btn btn-success">新增</button>

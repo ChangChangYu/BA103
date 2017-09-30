@@ -28,7 +28,7 @@
   
    <servlet>
     <servlet-name>AdmincontrollerServlet</servlet-name>
-    <servlet-class>com.admin.controller.adminServlet</servlet-class>
+    <servlet-class>com.admin.controller.AdminServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AdmincontrollerServlet</servlet-name>
