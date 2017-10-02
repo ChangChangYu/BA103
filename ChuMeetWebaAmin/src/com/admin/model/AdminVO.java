@@ -11,6 +11,7 @@ public class AdminVO implements java.io.Serializable{
 		private String adminEmail;
 		private Timestamp adminDate;
 		private Integer adminStatus;
+		
 		public Integer getAdminID() {
 			return adminID;
 		}
