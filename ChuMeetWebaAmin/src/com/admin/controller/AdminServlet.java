@@ -21,13 +21,14 @@ public class AdminServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		
-		
+		//新增員工資料
 		if("insert".equals(action)){
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("erroeMsgs", errorMsgs);
-			System.out.println("getAdminName");
-			try{
-				String adminName=req.getParameter("adminName");
+		
+			try{			
+				String adminName=req.getParameter("adminName");		
+				System.out.println(req.getParameter("adminName"));
 				String adminNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if(adminName == null || adminName.trim().length() == 0){
 					errorMsgs.put("adminName", "姓名:請勿空白");
@@ -60,8 +61,15 @@ public class AdminServlet extends HttpServlet {
 				}catch  (IllegalArgumentException e) {
 					errorMsgs.put("adminDate","請輸入日期");
 			}
-			   Integer adminStatus = new Integer(req.getParameter("adminStatus").trim());
-			    	
+				Integer adminStatus = null;
+				try{
+					adminStatus = new Integer(req.getParameter("adminStatus").trim());
+				} catch (NumberFormatException e) {
+					errorMsgs.put("adminStatus","狀態");
+				}
+				
+			   
+			// Send the use back to the form, if there were errors
 			   if(!errorMsgs.isEmpty()){
 				   RequestDispatcher failureView = req.getRequestDispatcher("/back-end/admin.jsp");
 				    failureView.forward(req,res);

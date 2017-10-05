@@ -270,10 +270,13 @@
 						</c:forEach>
 
 							</tbody>
-						</table>
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/admin.do">
-								<input type="submit" value="新增" class="btn btn-success">
-						</FORM>
+						</table>					
+								<ul>
+ 									<a href='addadmin.jsp' class="btn btn-success">新增</a>
+								</ul>
+						
+						
+					
 					</div>
 					<!--====================2nd-->
 					<div class="tab-pane fade" id="actTemp">
