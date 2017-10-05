@@ -28,7 +28,7 @@ public class AdminServlet extends HttpServlet {
 		
 			try{			
 				String adminName=req.getParameter("adminName");		
-				System.out.println(req.getParameter("adminName"));
+				
 				String adminNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if(adminName == null || adminName.trim().length() == 0){
 					errorMsgs.put("adminName", "姓名:請勿空白");
@@ -70,11 +70,11 @@ public class AdminServlet extends HttpServlet {
 				
 			   
 			// Send the use back to the form, if there were errors
-			   if(!errorMsgs.isEmpty()){
-				   RequestDispatcher failureView = req.getRequestDispatcher("/back-end/admin.jsp");
-				    failureView.forward(req,res);
-				    return;
-			   }
+//			   if(errorMsgs.isEmpty()){
+//				   RequestDispatcher failureView = req.getRequestDispatcher("/back-end/admin.jsp");
+//				    failureView.forward(req,res);
+//				    return;
+//			   }
 			   //開始新增資料
 			   AdminService adminSvc = new AdminService();
 			   adminSvc.addAdmin(adminName,adminMail,adminPW,adminEmail,adminDate,adminStatus);
@@ -120,6 +120,8 @@ public class AdminServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		
 	}
 		}	
 	

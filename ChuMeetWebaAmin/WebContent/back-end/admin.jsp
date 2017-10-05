@@ -7,7 +7,7 @@
 
 <%
 	AdminService adminSvc = new AdminService();
-	List<AdminVO> list = adminSvc.getAll();
+	List<AdminVO> list = adminSvc.statusadmin();
 	pageContext.setAttribute("list", list);
 %>
 
@@ -204,9 +204,9 @@
 					<strong>管理員列表</strong>
 				</h2>
 				<ul class="nav nav-tabs">
-					<li class="active"><a data-toggle="tab" href="#actMain">管理員資料</a>
+					<li class="active"><a data-toggle="tab" href="admin.jsp">管理員資料</a>
 					</li>
-					<li><a data-toggle="tab" href="#actTemp">管理員權限</a></li>
+					<li><a data-toggle="tab" href="admPrilType.jsp">管理員權限</a></li>
 				</ul>
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group  is-empty">
@@ -229,8 +229,7 @@
 									<th class="col-md-1">姓名</th>
 									<th class="col-md-1">帳號</th>
 									<th class="col-md-1">信箱</th>
-									<th class="col-md-1">時間</th>
-									<th class="col-md-1">狀態</th>
+									<th class="col-md-1">時間</th>									
 									<th class="col-md-1">修改</th>
 									<th class="col-md-1">暫停</th>
 								</tr>
@@ -241,12 +240,13 @@
 			
 	<c:forEach var="adminVO" items="${list}">
 								<tr>
+								
 									<td>${adminVO.adminID}</td>
 									<td>${adminVO.adminName}</td>
 									<td>${adminVO.adminMail}</td>
 									<td>${adminVO.adminEmail}</td>
 									<td>${adminVO.adminDate}</td>
-									<td>${adminVO.adminStatus}</td>
+									
 									
 									<td>
 											<FORM METHOD="post"ACTION="<%=request.getContextPath()%>/back-end/admin.do">											
@@ -272,14 +272,14 @@
 							</tbody>
 						</table>					
 								<ul>
- 									<a href='addadmin.jsp' class="btn btn-success">新增</a>
+ 									<a href='admPril.jsp' class="btn btn-success">新增</a>
 								</ul>
 						
 						
 					
 					</div>
 					<!--====================2nd-->
-					<div class="tab-pane fade" id="actTemp">
+					<div class="tab-pane fade" id="admPrilType.jsp">
 						<div class="tt">
 							<div class="tab-content">
 								<div class="tab-pane fade in active">
@@ -304,7 +304,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <div class="checkbox">
+                                                    <div class="checkbox" align="center">
                                                         <label>
                                                             <input type="checkbox" name="optionsCheckboxes">
                                                         </label>

@@ -11,5 +11,5 @@ public interface AdminDAO_interface {
 	public AdminVO findByAdminName(String adminName);
 	
 	public List<AdminVO> getAll();
-	
+	public List<AdminVO> statusadmin();
 }

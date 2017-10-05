@@ -35,7 +35,64 @@ public class AdminDAO implements AdminDAO_interface{
 			"UPDATE admin set adminName=?, adminMail=?,adminPW=?,adminEmail=?,adminDate=?,adminStatus=? where adminID=?";
 	
 	
-
+	private static final String STATUSADMIN=
+			"SELECT adminID,adminName,adminMail,adminPW,adminEmail,adminDate,adminStatus FROM admin where adminStatus=1";
+	
+	
+	@Override
+	public List<AdminVO> statusadmin() {
+		// TODO Auto-generated method stub
+		List<AdminVO> list=new ArrayList<AdminVO>();
+		AdminVO adminVO=null;
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try{
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(STATUSADMIN);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				adminVO=new AdminVO();
+				adminVO.setAdminID(rs.getInt("adminID"));
+				adminVO.setAdminName(rs.getString("adminName"));
+				adminVO.setAdminMail(rs.getString("adminMail"));
+				adminVO.setAdminEmail(rs.getString("adminEmail"));
+				adminVO.setAdminDate(rs.getTimestamp("adminDate"));
+				adminVO.setAdminStatus(rs.getInt("adminStatus"));
+				list.add(adminVO);
+			}
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+			}finally{
+				if(rs!=null){
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
+	
 	@Override
 	public void update(AdminVO adminVO) {
 		// TODO Auto-generated method stub

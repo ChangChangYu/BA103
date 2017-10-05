@@ -68,5 +68,7 @@ public class AdminService {
 	public AdminVO getAdminByAdminName(String adminName){
 		return dao.findByAdminName(adminName);
 	}
-	
+	public List<AdminVO> statusadmin() {
+		return dao.statusadmin();
+}
 }

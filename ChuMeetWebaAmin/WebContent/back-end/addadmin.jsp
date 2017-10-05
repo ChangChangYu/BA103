@@ -79,15 +79,15 @@
 <body>
 
 	<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font color='red'>請修正以下錯誤:
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li>${message.value}</li>
-		</c:forEach>
-	</ul>
-	</font>
-</c:if>
+	<c:if test="${not empty errorMsgs}">
+		<font color='red'>請修正以下錯誤:
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li>${message.value}</li>
+				</c:forEach>
+			</ul>
+		</font>
+	</c:if>
 
 
 	<div class="wrapper">
@@ -215,17 +215,14 @@
 						<div class="ripple-container"></div>
 					</button>
 				</form>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/admin.do" name="form1">
+
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="actMain">
 						<h2>管理員資料管理</h2>
-						
-							
-							
 						<table class="table table-hover">
+
 							<thead>
 								<tr class="bg-danger">
-
 
 									<th class="col-md-1">姓名</th>
 									<th class="col-md-1">帳號</th>
@@ -237,40 +234,47 @@
 								</tr>
 							</thead>
 							<tbody>
-								
+
 								<tr>
-
-
+									<FORM METHOD="post"
+										ACTION="<%=request.getContextPath()%>/back-end/admin.do">
 									<td><input type="TEXT" name="adminName" size="25"
-										value="${param.adminName}"/></td><td>${errorMsgs.adminName}</td>
-					
-									
+										value="${param.adminName}" /></td>
+									<td>${errorMsgs.adminName}</td>
+
+
 
 									<td><input type="TEXT" name="adminMail" size="25"
-										value="${param.adminMail}"/></td><td>${errorMsgs.adminMail}</td>
+										value="${param.adminMail}" /></td>
+									<td>${errorMsgs.adminMail}</td>
 
 									<td><input type="TEXT" name="adminPW" size="25"
-										value="${param.adminPW}"/></td><td>${errorMsgs.adminPW}</td>
+										value="${param.adminPW}" /></td>
+									<td>${errorMsgs.adminPW}</td>
 
 
 									<td><input type="TEXT" name="adminEmail" size="25"
-										value="${param.adminEmail}"/></td><td>${errorMsgs.adminEmail}</td>
+										value="${param.adminEmail}" /></td>
+									<td>${errorMsgs.adminEmail}</td>
 
 									<td><input type="TEXT" name="adminDate" size="25"
-										value="${param.adminDate}"/></td><td>${errorMsgs.adminDate}</td>
+										value="${param.adminDate}" /></td>
+									<td>${errorMsgs.adminDate}</td>
 
 
 									<td><input type="TEXT" name="adminStatus" size="25"
-										value="${param.adminStatus}"/></td><td>${errorMsgs.adminStatus}</td>
+										value="${param.adminStatus}" /></td>
+									<td>${errorMsgs.adminStatus}</td>
 								</tr>
-						
+
 							</tbody>
 
 						</table>
-						<input type="hidden" name="action" value="insert">
-						<input type="submit" value="新增" class="btn btn-success">
+						<input type="hidden" name="action" value="insert"> <input
+							type="submit" value="新增" class="btn btn-success">
 						</FORM>
 					</div>
+					
 					<!--====================2nd-->
 					<div class="tab-pane fade" id="actTemp">
 						<div class="tt">
@@ -288,9 +292,6 @@
 											</tr>
 										</thead>
 										<tbody>
-
-
-
 											<tr>
 												<td>NO.1</td>
 												<td>管理員管理</td>
