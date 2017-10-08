@@ -80,16 +80,6 @@
 
 <body>
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font color='red'>請修正以下錯誤:
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li>${message}</li>
-		</c:forEach>
-	</ul>
-	</font>
-</c:if>
 
 
 
@@ -220,7 +210,7 @@
 				</form>
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="actMain">
-						<h2>管理員資料管理</h2>
+						
 						<table class="table table-hover">
 							<thead>
 								<tr class="bg-danger">
@@ -261,7 +251,7 @@
 											ACTION="<%=request.getContextPath()%>/back-end/admin.do">
 											     <input type="submit" value="刪除" class="btn btn-danger btn-sm statbtn">							 
 												
-												 <input type="hidden" name="action" value="delete">
+												 <input type="hidden" name="action" value="ststus1">
 												 <input type="hidden" name="adminID" value="${adminVO.adminID}">
 										</FORM>
 									</td>

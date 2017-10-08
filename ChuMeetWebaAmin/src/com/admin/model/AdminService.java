@@ -2,16 +2,16 @@ package com.admin.model;
 
 import java.util.List;
 
-
-
 public class AdminService {
-	
+
 	private AdminDAO_interface dao;
-	public AdminService(){
-		dao=new AdminDAO();
+
+	public AdminService() {
+		dao = new AdminDAO();
 	}
-	public AdminVO addAdmin(String adminName, String adminMail,
-			String adminPW, String adminEmail,java.sql.Timestamp adminDate , Integer adminStatus) {
+
+	public AdminVO addAdmin(String adminName, String adminMail, String adminPW, String adminEmail,
+			java.sql.Timestamp adminDate, Integer adminStatus) {
 
 		AdminVO adminVO = new AdminVO();
 
@@ -26,13 +26,13 @@ public class AdminService {
 		return adminVO;
 	}
 
-	//�w�d�� Struts 2 �Ϊ�
+	// �w�d�� Struts 2 �Ϊ�
 	public void addAdmin(AdminVO adminVO) {
 		dao.insert(adminVO);
 	}
-	
-	public AdminVO updateAdmin(Integer adminID, String adminName, String adminMail,
-			String adminPW, String adminEmail,java.sql.Timestamp adminDate , Integer adminStatus) {
+
+	public AdminVO updateAdmin(Integer adminID, String adminName, String adminMail, String adminPW, String adminEmail,
+			java.sql.Timestamp adminDate, Integer adminStatus) {
 
 		AdminVO adminVO = new AdminVO();
 
@@ -43,13 +43,13 @@ public class AdminService {
 		adminVO.setAdminEmail(adminEmail);
 		adminVO.setAdminDate(adminDate);
 		adminVO.setAdminStatus(adminStatus);
-		
+
 		dao.update(adminVO);
 
 		return dao.findByPrimaryKey(adminID);
 	}
-	
-	//�w�d�� Struts 2 �Ϊ�
+
+	// �w�d�� Struts 2 �Ϊ�
 	public void updateAdmin(AdminVO adminVO) {
 		dao.update(adminVO);
 	}
@@ -65,10 +65,15 @@ public class AdminService {
 	public List<AdminVO> getAll() {
 		return dao.getAll();
 	}
-	public AdminVO getAdminByAdminName(String adminName){
+
+	public AdminVO getAdminByAdminName(String adminName) {
 		return dao.findByAdminName(adminName);
 	}
+
 	public List<AdminVO> statusadmin() {
 		return dao.statusadmin();
-}
+	}
+	public void status1(Integer adminID) {
+		dao.status1(adminID);
+	}
 }

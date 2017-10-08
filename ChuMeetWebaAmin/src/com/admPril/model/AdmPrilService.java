@@ -60,4 +60,7 @@ public class AdmPrilService {
 	public List<AdmPrilVO> getAll() {
 		return dao.getAll();
 }
+	public List<AdmPrilVO> status2(){
+		return dao.status2();
+	}
 }

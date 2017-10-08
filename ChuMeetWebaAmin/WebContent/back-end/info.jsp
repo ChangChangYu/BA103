@@ -237,7 +237,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="btn btn-success">新增</button>
+                           
                         </div>
                         <!--====================2nd-->
                         <div class="tab-pane fade" id="actTemp">

@@ -327,4 +327,10 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 			System.out.println();
 		}
 	}
+
+	@Override
+	public List<AdmPrilVO> status2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

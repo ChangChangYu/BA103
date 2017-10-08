@@ -1,12 +1,16 @@
 package com.admin.controller;
 
 import java.io.*;
+
 import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 import com.admin.model.*;
+
+
+
 
 public class AdminServlet extends HttpServlet {
 
@@ -79,6 +83,10 @@ public class AdminServlet extends HttpServlet {
 			   AdminService adminSvc = new AdminService();
 			   adminSvc.addAdmin(adminName,adminMail,adminPW,adminEmail,adminDate,adminStatus);
 			   
+			   
+			   
+			   
+			   
 			   //新增完成轉交
 			   String url = "/back-end/admin.jsp";
 			   RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -120,9 +128,29 @@ public class AdminServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
-		
+		if("ststus1".equals(action)){
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try{
+				Integer adminID =new  Integer(req.getParameter("adminID"));
+				//開始查詢
+			
+				AdminService adminSvc =new AdminService();
+				adminSvc.status1(adminID);
+			
+				//查詢完成,轉交
+				
+				String url= "/back-end/admin.jsp";
+				RequestDispatcher successView=req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			
+			}catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/admin.jsp");
+				failureView.forward(req, res);
+			}
 	}
 		}	
-	
-	
+}

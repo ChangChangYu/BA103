@@ -177,7 +177,7 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo �]�٬� Domain objects
+				// empVo 嚙稽嚙誶穿蕭 Domain objects
 				admPrilTypeVO = new AdmPrilTypeVO();
 				admPrilTypeVO.setAdmPrilID(rs.getInt("admPrilID"));
 				admPrilTypeVO.setAdmPrilTypeName(rs.getString("admPrilTypeName"));
@@ -239,7 +239,7 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 			
 	
 			while (rs.next()) {
-				// empVO �]�٬� Domain objects
+				// empVO 嚙稽嚙誶穿蕭 Domain objects
 				admPrilTypeVO = new AdmPrilTypeVO();
 				admPrilTypeVO.setAdmPrilID(rs.getInt("admPrilID"));
 				admPrilTypeVO.setAdmPrilTypeName(rs.getString("admPrilTypeName"));
@@ -286,7 +286,7 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 
 		AdmPrilTypeJDBCDAO dao = new AdmPrilTypeJDBCDAO();
 
-		// �s�
+		// 嚙編嚙�
 //		AdmPrilTypeVO admPrilTypeVO1 = new AdmPrilTypeVO();
 //		admPrilTypeVO1.setAdmPrilID(18);
 //		admPrilTypeVO1.setAdmPrilTypeName("456");
@@ -294,7 +294,7 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 //
 //		dao.insert(admPrilTypeVO1);
 
-		// �ק�
+		// 嚙論改蕭
 		AdmPrilTypeVO admPrilTypeVO2 = new AdmPrilTypeVO();
 		admPrilTypeVO2.setAdmPrilID(18);
 		admPrilTypeVO2.setAdmPrilTypeName("456");
@@ -302,10 +302,10 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 		
 		dao.update(admPrilTypeVO2);
 
-		// �R��
+		// 嚙磋嚙踝蕭
 	dao.delete(18);
 
-		// �d��
+		// 嚙範嚙踝蕭
 		AdmPrilTypeVO admPrilTypeVO3 = dao.findByPrimaryKey(1);
 		System.out.print(admPrilTypeVO3.getAdmPrilID() + ",");
 		System.out.print(admPrilTypeVO3.getAdmPrilTypeName() + ",");
@@ -313,7 +313,7 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 		
 		System.out.println("---------------------");
 //List<AdmPrilTypeVO> getAll(
-		// �d��
+		// 嚙範嚙踝蕭
 		List<AdmPrilTypeVO> list = dao.getAll();
 		for (AdmPrilTypeVO aAdmPrilType : list) {
 			System.out.print(aAdmPrilType.getAdmPrilID() + ",");
@@ -322,5 +322,10 @@ public class AdmPrilTypeJDBCDAO implements AdmPrilTypeDAO_interface {
 			
 			System.out.println();
 		}
+	}
+	@Override
+	public List<AdmPrilTypeVO> statusname() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

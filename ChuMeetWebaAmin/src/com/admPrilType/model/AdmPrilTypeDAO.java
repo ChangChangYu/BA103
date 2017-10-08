@@ -30,6 +30,69 @@ public class AdmPrilTypeDAO implements AdmPrilTypeDAO_interface{
 		private static final String UPDATE = 
 			"UPDATE admPrilType set admPrilTypeName=?, admPrilTypeStatus=? where admPrilID = ?";
 		
+		private static final String STATUSNAME = 
+				"SELECT admPrilID,admPrilTypeName FROM admPrilType order by admPrilID";
+		
+		@Override
+		public List<AdmPrilTypeVO> statusname() {
+			// TODO Auto-generated method stub
+			List<AdmPrilTypeVO> list = new ArrayList<AdmPrilTypeVO>();
+			AdmPrilTypeVO admPrilTypeVO = null;
+
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(STATUSNAME);
+				rs = pstmt.executeQuery();
+				
+		
+				while (rs.next()) {
+					// empVO �]�٬� Domain objects
+					admPrilTypeVO = new AdmPrilTypeVO();
+					admPrilTypeVO.setAdmPrilID(rs.getInt("admPrilID"));
+					admPrilTypeVO.setAdmPrilTypeName(rs.getString("admPrilTypeName"));
+								
+					list.add(admPrilTypeVO); // Store the row in the list
+				}
+
+				// Handle any driver errors
+			}  catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
+
+
+		
+		
 		@Override
 		public void insert(AdmPrilTypeVO admPrilTypeVO) {
 			// TODO Auto-generated method stub

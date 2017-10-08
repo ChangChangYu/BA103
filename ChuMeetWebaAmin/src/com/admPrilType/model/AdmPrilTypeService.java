@@ -56,6 +56,9 @@ public class AdmPrilTypeService {
 	public List<AdmPrilTypeVO> getAll() {
 		return dao.getAll();
 	}
+	public List<AdmPrilTypeVO> statusname() {
+		return dao.statusname();
+	}
 }
 
 

@@ -8,5 +8,5 @@ public interface AdmPrilDAO_interface {
 		public void delete(Integer admPrilID);
 		public AdmPrilVO findByPrimaryKey(Integer admPrilID);
 		public List<AdmPrilVO> getAll();
-		
+		public List<AdmPrilVO> status2();
 }

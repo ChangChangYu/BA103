@@ -256,21 +256,21 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 		
 //		adminID=? ,adminName=?, adminMail=?,adminPW=?,adminEmail=?,adminDate=?,adminStatus=?
 //		// 嚙論改蕭
-		AdminVO adminVO2 = new AdminVO();
-		adminVO2.setAdminID(13);
-		adminVO2.setAdminName("123");
-		adminVO2.setAdminMail("MANAGER");
-		adminVO2.setAdminPW("123");
-		adminVO2.setAdminEmail("50000");
-		adminVO2.setAdminDate(java.sql.Timestamp.valueOf("2002-01-01 10:10:10"));
-		adminVO2.setAdminStatus(1);
-		dao.update(adminVO2);
+//		AdminVO adminVO2 = new AdminVO();
+//		adminVO2.setAdminID(13);
+//		adminVO2.setAdminName("123");
+//		adminVO2.setAdminMail("MANAGER");
+//		adminVO2.setAdminPW("123");
+//		adminVO2.setAdminEmail("50000");
+//		adminVO2.setAdminDate(java.sql.Timestamp.valueOf("2002-01-01 10:10:10"));
+//		adminVO2.setAdminStatus(1);
+//		dao.update(adminVO2);
 
 		// 嚙磋嚙踝蕭
 	//		dao.delete(13);
 //
 //		// 嚙範嚙踝蕭
-		AdminVO adminVO3 = dao.findByPrimaryKey(1);
+		AdminVO adminVO3 = dao.findByPrimaryKey(2);
 		System.out.print(adminVO3.getAdminID()+ ",");
 		System.out.print(adminVO3.getAdminName() + ",");
 		System.out.print(adminVO3.getAdminMail() + ",");
@@ -282,18 +282,18 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 		System.out.println("---------------------");
 
 		// 嚙範嚙踝蕭
-		List<AdminVO> list = dao.getAll();
-		for (AdminVO aAdmin : list) {
-			System.out.print(aAdmin.getAdminID() + ",");
-			System.out.print(aAdmin.getAdminName() + ",");
-			System.out.print(aAdmin.getAdminMail() + ",");
-			System.out.print(aAdmin.getAdminPW() + ",");
-			System.out.print(aAdmin.getAdminEmail() + ",");
-			System.out.print(aAdmin.getAdminDate() + ",");
-			System.out.print(aAdmin.getAdminStatus() + ",");
-	
-			System.out.println();
-		}
+//		List<AdminVO> list = dao.getAll();
+//		for (AdminVO aAdmin : list) {
+//			System.out.print(aAdmin.getAdminID() + ",");
+//			System.out.print(aAdmin.getAdminName() + ",");
+//			System.out.print(aAdmin.getAdminMail() + ",");
+//			System.out.print(aAdmin.getAdminPW() + ",");
+//			System.out.print(aAdmin.getAdminEmail() + ",");
+//			System.out.print(aAdmin.getAdminDate() + ",");
+//			System.out.print(aAdmin.getAdminStatus() + ",");
+//	
+//			System.out.println();
+//		}
 	}
 
 
@@ -347,6 +347,23 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public void status1(Integer AdminID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public List<AdminVO> statusadmin() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 	
 	
 }
