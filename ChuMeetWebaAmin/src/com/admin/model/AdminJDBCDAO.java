@@ -363,6 +363,13 @@ public class AdminJDBCDAO implements AdminDAO_interface {
 	}
 
 
+	@Override
+	public AdminVO findByAdminMail(String adminMail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 	
 	

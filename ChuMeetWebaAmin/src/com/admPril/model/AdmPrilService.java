@@ -9,15 +9,14 @@ public class AdmPrilService {
 		dao = new AdmPrilDAO();
 	}
 
-	public AdmPrilVO addAdmPril(Integer adminID, java.sql.Timestamp admPrildate, 
+	public AdmPrilVO addAdmPril(Integer adminPrilID,Integer adminID, java.sql.Timestamp admPrildate, 
 			Integer admPrilStatus) {
 
 		AdmPrilVO annVO = new AdmPrilVO();
-
+		annVO.setAdmPrilID(adminPrilID);
 		annVO.setAdminID(adminID);
 		annVO.setAdmPrildate(admPrildate);
 		annVO.setAdmPrilStatus(admPrilStatus);
-		
 	
 		dao.insert(annVO);
 
@@ -62,5 +61,8 @@ public class AdmPrilService {
 }
 	public List<AdmPrilVO> status2(){
 		return dao.status2();
+	}
+	public List<AdmPrilVO> getAdmPrilList(Integer adminID){
+		return dao.findByAdminID(adminID);
 	}
 }

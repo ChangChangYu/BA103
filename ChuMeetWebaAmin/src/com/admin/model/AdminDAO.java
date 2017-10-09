@@ -31,6 +31,10 @@ public class AdminDAO implements AdminDAO_interface {
 	private static final String STATUSADMIN = "SELECT adminID,adminName,adminMail,adminPW,adminEmail,adminDate,adminStatus FROM admin where adminStatus=1";
 	private static final String STATUSUPDATE = "UPDATE admin set adminStatus=0  where adminID=?";
 
+	private static final String GET_ONE_STMT_BY_ADMINNAME=
+			"SELECT adminID,adminName,adminMail,adminPW,adminEmail,to_char(adminDate,'yyyy-mm-dd hh:mm:ss')adminDate,adminStatus FROM admin where adminName=?";
+	private static final String GET_ONE_STMT_BY_ADMINMAIL=
+			"SELECT adminID,adminName,adminMail,adminPW,adminEmail,to_char(adminDate,'yyyy-mm-dd hh:mm:ss')adminDate,adminStatus FROM admin where adminMail=?";
 	@Override
 	public void status1(Integer AdminID) {
 		// TODO Auto-generated method stub
@@ -340,6 +344,60 @@ public class AdminDAO implements AdminDAO_interface {
 	}
 
 	@Override
+	public AdminVO findByAdminMail(String adminMail) {
+		AdminVO adminVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			// �憓�撠�辣
+			pstmt = con.prepareStatement(GET_ONE_STMT_BY_ADMINMAIL);
+
+			pstmt.setString(1, adminMail);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				adminVO = new AdminVO();
+				adminVO.setAdminID(rs.getInt("adminID"));
+				adminVO.setAdminName(rs.getString("adminName"));
+				adminVO.setAdminMail(rs.getString("adminMail"));
+				adminVO.setAdminPW(rs.getString("adminPW"));
+				adminVO.setAdminEmail(rs.getString("adminEmail"));
+				adminVO.setAdminDate(rs.getTimestamp("adminDate"));
+				adminVO.setAdminStatus(rs.getInt("adminStatus"));
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return adminVO;
+
+	}
+
+	@Override
 	public AdminVO findByAdminName(String adminName) {
 		AdminVO adminVO = null;
 		Connection con = null;
@@ -349,7 +407,7 @@ public class AdminDAO implements AdminDAO_interface {
 		try {
 			con = ds.getConnection();
 			// �憓�撠�辣
-			pstmt = con.prepareStatement(GET_ONE_STMT);
+			pstmt = con.prepareStatement(GET_ONE_STMT_BY_ADMINNAME);
 
 			pstmt.setString(1, adminName);
 			rs = pstmt.executeQuery();

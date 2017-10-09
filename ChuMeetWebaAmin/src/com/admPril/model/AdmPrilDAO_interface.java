@@ -9,4 +9,5 @@ public interface AdmPrilDAO_interface {
 		public AdmPrilVO findByPrimaryKey(Integer admPrilID);
 		public List<AdmPrilVO> getAll();
 		public List<AdmPrilVO> status2();
+		public List<AdmPrilVO> findByAdminID(Integer adminID);
 }

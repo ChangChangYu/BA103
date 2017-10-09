@@ -15,4 +15,5 @@ public interface AdminDAO_interface {
 	
 	public List<AdminVO> getAll();
 	public List<AdminVO> statusadmin();
+	AdminVO findByAdminMail(String adminMail);
 }

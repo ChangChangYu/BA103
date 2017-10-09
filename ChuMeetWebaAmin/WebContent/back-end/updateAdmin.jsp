@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.admin.model.*"%>
 <%@ page import="com.admPril.model.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
-	AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
+	AdminVO adminVO = (AdminVO) request.getAttribute("adminVO"); //EmpServlet.java (Concroller), 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
-
 <html>
 <head>
 <link rel="apple-touch-icon" sizes="76x76"
@@ -171,22 +171,15 @@
 							data-toggle="dropdown">
 								<p class="hidden-lg hidden-md">Dashboard</p>
 						</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown"> <i class="material-icons">notifications</i>
-								<span class="notification">5</span>
-								<p class="hidden-lg hidden-md">Notifications</p>
-						</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Mike John responded to your email</a></li>
-								<li><a href="#">You have 5 new tasks</a></li>
-								<li><a href="#">You're now friend with Andrew</a></li>
-								<li><a href="#">Another Notification</a></li>
-								<li><a href="#">Another One</a></li>
-							</ul></li>
 						<li><a href="#pablo" class="dropdown-toggle"
 							data-toggle="dropdown"> <i class="material-icons">person</i>
 								<p class="hidden-lg hidden-md">Profile</p>
-						</a></li>
+						</a>
+													<ul class="dropdown-menu">
+								<li><a href="#">修改資料</a></li>
+								<li><a href="#">登出</a></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -219,62 +212,49 @@
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="actMain">
 						<h2>管理員資料管理</h2>
-						<table class="table table-hover">
 
-							<thead>
-								<tr class="bg-danger">
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/back-end/admin.do"
+							name="form1">
 
-									<th class="col-md-1">姓名</th>
-									<th class="col-md-1">帳號</th>
-									<th class="col-md-1">密碼</th>
-									<th class="col-md-1">信箱</th>
-									<th class="col-md-1">時間</th>
-									<th class="col-md-1">狀態</th>
+							<table class="table table-hover">
 
-								</tr>
-							</thead>
-							<tbody>
+								<thead>
+									<tr class="bg-danger">
+										<th class="col-md-1">姓名</th>
+										<th class="col-md-1">帳號</th>
+										<th class="col-md-1">密碼</th>
+										<th class="col-md-1">信箱</th>
+									</tr>
+								</thead>
+								<tbody>
 
-								<tr>
-									<FORM METHOD="post"
-										ACTION="<%=request.getContextPath()%>/back-end/admin.do">
-									<td><input type="TEXT" name="adminName" size="25"
-										value="${param.adminName}" /></td>
-									<td>${errorMsgs.adminName}</td>
+									<tr>
+										<td><input type="TEXT" name="adminName" size="45"
+											value="<%=adminVO.getAdminName()%>"></td>
+									</tr>
+									<tr>
+										<td><input type="TEXT" name="adminMail" size="45"
+											value="<%=adminVO.getAdminMail()%>"></td>
+									</tr>
+									<tr>
+										<td><input type="TEXT" name="adminPW" size="45"
+											value="<%=adminVO.getAdminPW()%>"></td>
+									</tr>
+									<tr>
+										<td><input type="TEXT" name="adminEmail" size="45"
+											value="<%=adminVO.getAdminEmail()%>"></td>
+									</tr>
+								</tbody>
 
-
-
-									<td><input type="TEXT" name="adminMail" size="25"
-										value="${param.adminMail}" /></td>
-									<td>${errorMsgs.adminMail}</td>
-
-									<td><input type="TEXT" name="adminPW" size="25"
-										value="${param.adminPW}" /></td>
-									<td>${errorMsgs.adminPW}</td>
-
-
-									<td><input type="TEXT" name="adminEmail" size="25"
-										value="${param.adminEmail}" /></td>
-									<td>${errorMsgs.adminEmail}</td>
-
-									<td><input type="TEXT" name="adminDate" size="25"
-										value="${param.adminDate}" /></td>
-									<td>${errorMsgs.adminDate}</td>
-
-
-									<td><input type="TEXT" name="adminStatus" size="25"
-										value="${param.adminStatus}" /></td>
-									<td>${errorMsgs.adminStatus}</td>
-								</tr>
-
-							</tbody>
-
-						</table>
-						<input type="hidden" name="action" value="insert"> <input
-							type="submit" value="新增" class="btn btn-success">
+							</table>
+							<input type="hidden" name="action" value="update"> <input
+								type="hidden" name="adminID" value="<%=adminVO.getAdminID()%>">
+							<input type="submit" value="送出修改" class="btn btn-sm btn-warning">
 						</FORM>
+
 					</div>
-					
+
 					<!--====================2nd-->
 					<div class="tab-pane fade" id="actTemp">
 						<div class="tt">
@@ -420,20 +400,20 @@
 	</div>
 </body>
 <!--   Core JS Files   -->
-<script src="../assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
-<script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../assets/js/material.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/material.min.js" type="text/javascript"></script>
 <!--  Charts Plugin -->
-<script src="../assets/js/chartist.min.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
-<script src="../assets/js/bootstrap-notify.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/bootstrap-notify.js"></script>
 <!--  Google Maps Plugin    -->
 <script type="text/javascript"
 	src="https://maps.googleapis.com/maps/api/js"></script>
 <!-- Material Dashboard javascript methods -->
-<script src="../assets/js/material-dashboard.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/material-dashboard.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="../assets/js/demo.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/demo.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 

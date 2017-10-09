@@ -2,13 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.admin.model.*"%>
-<%@ page import="com.admPril.model.*" %>
+<%@ page import="com.admPril.model.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
 	AdminService adminSvc = new AdminService();
 	List<AdminVO> list = adminSvc.statusadmin();
 	pageContext.setAttribute("list", list);
+	AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
+	List<AdmPrilVO> admPrilList = (List)session.getAttribute("admPrilList");
 %>
 
 <html>
@@ -75,6 +77,15 @@
 .cclabel:active:after {
 	width: 20px;
 }
+.btn-link{
+     background:none!important;
+     color:inherit;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     cursor: pointer;
+}
 </style>
 </head>
 
@@ -82,7 +93,7 @@
 
 
 
-
+<c:if test="${adminVO!=null}">
 	<div class="wrapper">
 		<div class="sidebar" data-color="purple"
 			data-image="<%=request.getContextPath()%>/HTML/BackEnd/assets/img/sidebar-1.jpg">
@@ -102,48 +113,69 @@
 							<p>
 								<strong>首頁</strong>
 							</p></a></li>
-					<li class="active"><a href="admin_admin.html"><i
-							class="material-icons">person</i>
-							<p>
-								<strong>管理員管理</strong>
-							</p></a>
-					<li><a href="admin_info.html"><i class="material-icons">person</i>
-							<p>
-								<strong>網站管理</strong>
-							</p></a></li>
-					<li><a href="admin_appAnn.html"><i class="material-icons">phonelink_ring</i>
-							<p>
-								<strong>APP推播管理</strong>
-							</p></a></li>
-					<li><a href="admin_member.html"><i
-							class="material-icons text-gray">face</i>
-							<p>
-								<strong>會員管理</strong>
-							</p></a></li>
-					<li><a href="admin_reward.html"><i
-							class="material-icons text-gray">face</i>
-							<p>
-								<strong>成就與獎賞管理</strong>
-							</p></a></li>
-					<li><a href="admin_memTicket.html"><i
-							class="material-icons">library_books</i>
-							<p>
-								<strong>檢舉管理</strong>
-							</p></a></li>
-					<li><a href="admin_POI.html"><i class="material-icons">location_on</i>
-							<p>
-								<strong>活動社團分類管理</strong>
-							</p></a></li>
-					<li><a href="admin_act.html"><i
-							class="material-icons text-gray">directions_bike</i>
-							<p>
-								<strong>活動管理</strong>
-							</p></a></li>
-					<li><a href="admin_club.html"><i
-							class="material-icons text-gray">wc</i>
-							<p>
-								<strong>社團資料管理</strong>
-							</p></a></li>
+					<c:forEach var="admPrilVO" items="${admPrilList}">
+						<c:if test="${admPrilVO.admPrilID==1}">
+							<li class="active"><a href="admin_admin.html"><i
+									class="material-icons">person</i>
+									<p>
+										<strong>管理員管理</strong>
+									</p></a></li>
+						</c:if>
+						<c:if test="${admPrilVO.admPrilID==2}">
+							<li><a href="admin_info.html"><i class="material-icons">person</i>
+									<p>
+										<strong>網站管理</strong>
+									</p></a></li>
+						</c:if>
+						<c:if test="${admPrilVO.admPrilID==3}">
+							<li><a href="admin_appAnn.html"><i
+									class="material-icons">phonelink_ring</i>
+									<p>
+										<strong>APP推播管理</strong>
+									</p></a></li>
+						</c:if>
+						<c:if test="${admPrilVO.admPrilID==4}">
+							<li><a href="admin_member.html"><i
+									class="material-icons text-gray">face</i>
+									<p>
+										<strong>會員管理</strong>
+									</p></a></li>
+						</c:if>
+						<c:if test="${admPrilVO.admPrilID==5}">
+							<li><a href="admin_reward.html"><i
+									class="material-icons text-gray">face</i>
+									<p>
+										<strong>成就與獎賞管理</strong>
+									</p></a></li>
+						</c:if>
+						<c:if test="${admPrilVO.admPrilID==6}">
+							<li><a href="admin_memTicket.html"><i
+									class="material-icons">library_books</i>
+									<p>
+										<strong>檢舉管理</strong>
+									</p></a></li>
+						</c:if>
+						<c:if test="${admPrilVO.admPrilID==7}">
+							<li><a href="admin_POI.html"><i class="material-icons">location_on</i>
+									<p>
+										<strong>活動社團分類管理</strong>
+									</p></a></li>
+						</c:if>
+						<c:if test="${admPrilVO.admPrilID==8}">
+							<li><a href="admin_act.html"><i
+									class="material-icons text-gray">directions_bike</i>
+									<p>
+										<strong>活動管理</strong>
+									</p></a></li>
+						</c:if>
+						<c:if test="${admPrilVO.admPrilID==9}">
+							<li><a href="admin_club.html"><i
+									class="material-icons text-gray">wc</i>
+									<p>
+										<strong>社團資料管理</strong>
+									</p></a></li>
+						</c:if>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
@@ -156,7 +188,6 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">Material Dashboard</a>
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
@@ -164,22 +195,32 @@
 							data-toggle="dropdown">
 								<p class="hidden-lg hidden-md">Dashboard</p>
 						</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown"> <i class="material-icons">notifications</i>
-								<span class="notification">5</span>
-								<p class="hidden-lg hidden-md">Notifications</p>
-						</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Mike John responded to your email</a></li>
-								<li><a href="#">You have 5 new tasks</a></li>
-								<li><a href="#">You're now friend with Andrew</a></li>
-								<li><a href="#">Another Notification</a></li>
-								<li><a href="#">Another One</a></li>
-							</ul></li>
 						<li><a href="#pablo" class="dropdown-toggle"
 							data-toggle="dropdown"> <i class="material-icons">person</i>
 								<p class="hidden-lg hidden-md">Profile</p>
-						</a></li>
+						</a>
+													<ul class="dropdown-menu">
+								<li class="text-center">
+								<FORM METHOD="post"
+												ACTION="<%=request.getContextPath()%>/back-end/admin.do">
+												<input type="submit" value="修改資料"
+													class="btn-link"> <input
+													type="hidden" name="action" value="getOne_For_Update"> <input
+													type="hidden" name="adminID" value="${adminVO.adminID}">
+											</FORM>
+								</li>
+								<li class="text-center">
+								<FORM METHOD="post"
+												ACTION="<%=request.getContextPath()%>/back-end/admin.do">
+												<input type="submit" value="登出"
+													class="btn-link"> <input
+													type="hidden" name="action" value="logout"> <input
+													type="hidden" name="adminID" value="${adminVO.adminID}">
+											</FORM>
+								</li>
+								
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -210,7 +251,7 @@
 				</form>
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="actMain">
-						
+
 						<table class="table table-hover">
 							<thead>
 								<tr class="bg-danger">
@@ -219,7 +260,7 @@
 									<th class="col-md-1">姓名</th>
 									<th class="col-md-1">帳號</th>
 									<th class="col-md-1">信箱</th>
-									<th class="col-md-1">時間</th>									
+									<th class="col-md-1">時間</th>
 									<th class="col-md-1">修改</th>
 									<th class="col-md-1">暫停</th>
 								</tr>
@@ -227,46 +268,47 @@
 							<tbody>
 
 
-			
-	<c:forEach var="adminVO" items="${list}">
-								<tr>
-								
-									<td>${adminVO.adminID}</td>
-									<td>${adminVO.adminName}</td>
-									<td>${adminVO.adminMail}</td>
-									<td>${adminVO.adminEmail}</td>
-									<td>${adminVO.adminDate}</td>
-									
-									
-									<td>
-											<FORM METHOD="post"ACTION="<%=request.getContextPath()%>/back-end/admin.do">											
-												<input type="submit" value="修改" class="btn btn-sm btn-warning"> 
-												
+
+								<c:forEach var="adminVO" items="${list}">
+									<tr>
+
+										<td>${adminVO.adminID}</td>
+										<td>${adminVO.adminName}</td>
+										<td>${adminVO.adminMail}</td>
+										<td>${adminVO.adminEmail}</td>
+										<td>${adminVO.adminDate}</td>
+
+
+										<td>
+											<FORM METHOD="post"
+												ACTION="<%=request.getContextPath()%>/back-end/admin.do">
+												<input type="submit" value="修改"
+													class="btn btn-sm btn-warning"> <input
+													type="hidden" name="adminID" value="${adminVO.adminID}">
 												<input type="hidden" name="action" value="getOne_For_Update">
-												<input type="hidden" name="adminID" value="${adminVO.adminID}">
-											 </FORM>
-									</td>
-									<td>
-										<FORM METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/admin.do">
-											     <input type="submit" value="刪除" class="btn btn-danger btn-sm statbtn">							 
-												
-												 <input type="hidden" name="action" value="ststus1">
-												 <input type="hidden" name="adminID" value="${adminVO.adminID}">
-										</FORM>
-									</td>
-								</tr>
-								
-						</c:forEach>
+											</FORM>
+										</td>
+										<td>
+											<FORM METHOD="post"
+												ACTION="<%=request.getContextPath()%>/back-end/admin.do">
+												<input type="submit" value="刪除"
+													class="btn btn-danger btn-sm statbtn"> <input
+													type="hidden" name="action" value="ststus1"> <input
+													type="hidden" name="adminID" value="${adminVO.adminID}">
+											</FORM>
+										</td>
+									</tr>
+
+								</c:forEach>
 
 							</tbody>
-						</table>					
-								<ul>
- 									<a href='admPril.jsp' class="btn btn-success">新增</a>
-								</ul>
-						
-						
-					
+						</table>
+						<ul>
+							<a href='admPril.jsp' class="btn btn-success">新增</a>
+						</ul>
+
+
+
 					</div>
 					<!--====================2nd-->
 					<div class="tab-pane fade" id="admPrilType.jsp">
@@ -280,133 +322,133 @@
 												<th class="col-md-1">編號</th>
 												<th class="col-md-1">網頁管理</th>
 												<th class="col-md-1">姓名</th>
-												<th class="col-md-1">帳號</th>											
+												<th class="col-md-1">帳號</th>
 												<th class="col-md-1">權限</th>
 											</tr>
 										</thead>
 										<tbody>
-										
-										
-															
-											 <tr>
-                                                <td>NO.1</td>
-                                                <td>管理員管理</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="checkbox" align="center">
-                                                        <label>
-                                                            <input type="checkbox" name="optionsCheckboxes">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>NO.2</td>
-                                                <td>網站管理</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="optionsCheckboxes">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>NO.3</td>
-                                                <td>App推播管理</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="optionsCheckboxes">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>NO.4</td>
-                                                <td>會員管理</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="optionsCheckboxes">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>NO.5</td>
-                                                <td>成就與獎賞管理</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="optionsCheckboxes">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>NO.6</td>
-                                                <td>檢舉管理</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="optionsCheckboxes">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>NO.7</td>
-                                                <td>活動社團分類管理</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="optionsCheckboxes">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>NO.8</td>
-                                                <td>活動管理</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="optionsCheckboxes">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>NO.9</td>
-                                                <td>社團管理</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" name="optionsCheckboxes">
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                            </tr>
+
+
+
+											<tr>
+												<td>NO.1</td>
+												<td>管理員管理</td>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="checkbox" align="center">
+														<label> <input type="checkbox"
+															name="optionsCheckboxes">
+														</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>NO.2</td>
+												<td>網站管理</td>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															name="optionsCheckboxes">
+														</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>NO.3</td>
+												<td>App推播管理</td>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															name="optionsCheckboxes">
+														</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>NO.4</td>
+												<td>會員管理</td>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															name="optionsCheckboxes">
+														</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>NO.5</td>
+												<td>成就與獎賞管理</td>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															name="optionsCheckboxes">
+														</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>NO.6</td>
+												<td>檢舉管理</td>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															name="optionsCheckboxes">
+														</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>NO.7</td>
+												<td>活動社團分類管理</td>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															name="optionsCheckboxes">
+														</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>NO.8</td>
+												<td>活動管理</td>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															name="optionsCheckboxes">
+														</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>NO.9</td>
+												<td>社團管理</td>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															name="optionsCheckboxes">
+														</label>
+													</div>
+												</td>
+											</tr>
 										</tbody>
-									
+
 									</table>
 									<button class="btn btn-success">新增</button>
 
@@ -422,22 +464,23 @@
 			<!--/////////////////////////////////////////////////////////////////////////////-->
 		</div>
 	</div>
+	</c:if>
 </body>
 <!--   Core JS Files   -->
-<script src="../assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
-<script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../assets/js/material.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/material.min.js" type="text/javascript"></script>
 <!--  Charts Plugin -->
-<script src="../assets/js/chartist.min.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
-<script src="../assets/js/bootstrap-notify.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/bootstrap-notify.js"></script>
 <!--  Google Maps Plugin    -->
 <script type="text/javascript"
 	src="https://maps.googleapis.com/maps/api/js"></script>
 <!-- Material Dashboard javascript methods -->
-<script src="../assets/js/material-dashboard.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/material-dashboard.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="../assets/js/demo.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/demo.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 

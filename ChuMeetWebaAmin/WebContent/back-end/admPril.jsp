@@ -217,13 +217,7 @@
                                         <th></th>                                       
                                         <th class="col-md-1">帳號</th>
                                           <th></th>
-                                        <th class="col-md-1">密碼</th>
-                                          <th></th>
                                         <th class="col-md-1">信箱</th>
-                                          <th></th>
-                                        <th class="col-md-1">時間</th>
-                                          <th></th>
-                                        <th class="col-md-1">狀態</th>
                                           <th></th>
                                       
                                     </tr>
@@ -233,63 +227,137 @@
                                 <tbody>
                                      <tr>
 								
-									<td><input type="TEXT" name="adminName" size="25"
-										value="${param.adminName}" /></td>
+									<td><input type="TEXT" name="adminName" size="25"></td>
 									<td>${errorMsgs.adminName}</td>
 
 
 
-									<td><input type="TEXT" name="adminMail" size="25"
-										value="${param.adminMail}" /></td>
+									<td><input type="TEXT" name="adminMail" size="25"></td>
 									<td>${errorMsgs.adminMail}</td>
 
-									<td><input type="TEXT" name="adminPW" size="25"
-										value="${param.adminPW}" /></td>
-									<td>${errorMsgs.adminPW}</td>
-
-
-									<td><input type="TEXT" name="adminEmail" size="25"
-										value="${param.adminEmail}" /></td>
+									<td><input type="TEXT" name="adminEmail" size="25"></td>
 									<td>${errorMsgs.adminEmail}</td>
 
-									<td><input type="date" name="adminDate" size="25"
-										value="${param.adminDate}" /></td>
-									<td>${errorMsgs.adminDate}</td>
-
-
-									<td><input type="TEXT" name="adminStatus" size="25"
-										value="${param.adminStatus}" /></td>
-									<td>${errorMsgs.adminStatus}</td>
 								</tr>
+								</tbody>
+                               </table>     
                                     
-                                    
-                                    
-                                     <thead>
+                                <table  class="table table-hover">
+                                <thead>
                                     <tr class="bg-danger">
-                                           <th class="col-md-1">編號</th>
-                                        <th></th>                                       
-                                        <th class="col-md-1">權限管理</th>
-                                          <th></th>                                     
+                                           <th class="col-md-1">編號</th>                                     
+                                        <th class="col-md-1">權限管理</th>                                 
                                         <th class="col-md-1">權限</th>
-                                          <th></th>
                                     </tr>
                                 </thead>
-                                    <c:forEach var="admPrilTypeVO" items="${list}">
-                                    <tr>
-                                                <td>${admPrilTypeVO.admPrilID}</td>
-                                                <th></th>
-                                                <td>${admPrilTypeVO.admPrilTypeName}</td>
-                                                 <th></th>
-                                                                                             
-                                                <td > 
-                                                    <div class="checkbox" >
+                                <tbody>
+											 <tr>
+                                                <td>NO.1</td>
+                                                <td>管理員管理</td>
+                                                <td>
+                                                    <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox" name="optionsCheckboxes">
+                                                            <input type="checkbox" name="adminPrivCheckbox">
                                                         </label>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            </c:forEach>
+                                            <tr>
+                                                <td>NO.2</td>
+                                                <td>網站管理</td>
+
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="infoPrivCheckbox">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>NO.3</td>
+                                                <td>App推播管理</td>
+
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="appPrivCheckbox">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>NO.4</td>
+                                                <td>會員管理</td>
+
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="memberPrivCheckbox">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>NO.5</td>
+                                                <td>成就與獎賞管理</td>
+
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="achPrivCheckbox">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>NO.6</td>
+                                                <td>檢舉管理</td>
+
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="reportPrivCheckbox">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>NO.7</td>
+                                                <td>活動社團分類管理</td>
+
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="poiPrivCheckbox">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>NO.8</td>
+                                                <td>活動管理</td>
+
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="actPrivCheckbox">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>NO.9</td>
+                                                <td>社團管理</td>
+
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="clubPrivCheckbox">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                             
                                     
                                     

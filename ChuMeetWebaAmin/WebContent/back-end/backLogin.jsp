@@ -42,7 +42,7 @@
 			</div>
 			<div class="form-group">
 				<label for="username">帳號</label>
-				<input type="text" placeholder ="帳號" name="adminName">
+				<input type="text" placeholder ="帳號" name="adminMail">
 			</div>
 			
 			<div class="form-group help">

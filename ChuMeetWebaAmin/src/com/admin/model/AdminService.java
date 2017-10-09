@@ -69,6 +69,9 @@ public class AdminService {
 	public AdminVO getAdminByAdminName(String adminName) {
 		return dao.findByAdminName(adminName);
 	}
+	public AdminVO getAdminByAdminMail(String adminMail) {
+		return dao.findByAdminMail(adminMail);
+	}
 
 	public List<AdminVO> statusadmin() {
 		return dao.statusadmin();

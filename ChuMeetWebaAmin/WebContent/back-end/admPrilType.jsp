@@ -97,7 +97,7 @@
             Tip 2: you can also add an image using data-image tag
         -->
 			<div class="logo text-center">
-				<img src="../assets/img/ChuMeet_logo_2.png"> <strong>管理平台</strong>
+				<img src="<%=request.getContextPath()%>/HTML/BackEnd/assets/img/ChuMeet_logo_2.png"> <strong>管理平台</strong>
 			</div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
@@ -198,9 +198,9 @@
 					<strong>管理員列表</strong>
 				</h2>
 				<ul class="nav nav-tabs">
-					<li class="active"><a data-toggle="tab" href="admin.jsp">管理員資料</a>
+					<li><a data-toggle="tab" href="admin.jsp">管理員資料</a>
 					</li>
-					<li><a data-toggle="tab" href="admPrilType.jsp">管理員權限</a></li>
+					<li class="active"><a data-toggle="tab" href="admPrilType.jsp">管理員權限</a></li>
 
 				</ul>
 

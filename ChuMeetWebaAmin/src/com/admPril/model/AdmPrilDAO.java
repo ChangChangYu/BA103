@@ -34,6 +34,9 @@ public class AdmPrilDAO implements AdmPrilDAO_interface{
 	
 	private static final String STATUS2=
 			"SELECT admPrilID,adminID From admPril order by admPrilID";
+	
+	private static final String GET_ONE_STMT_BY_ADMINID=
+			"select * from admpril where adminId=?";
 
 	@Override
 	public List<AdmPrilVO> status2() {
@@ -330,4 +333,67 @@ public List<AdmPrilVO> getAll() {
 	}
 	return list;
 }
+
+@Override
+public List<AdmPrilVO> findByAdminID(Integer adminID) {
+	// TODO Auto-generated method stub
+	List<AdmPrilVO> list = new ArrayList<AdmPrilVO>();
+	AdmPrilVO admPrilVO = null;
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	try {
+
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_ONE_STMT_BY_ADMINID);
+
+		pstmt.setInt(1, adminID);
+
+		rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			// empVo �]�٬� Domain objects
+			admPrilVO = new AdmPrilVO();
+			admPrilVO.setAdmPrilID(rs.getInt("admPrilID"));
+			admPrilVO.setAdminID(rs.getInt("adminID"));
+			admPrilVO.setAdmPrildate(rs.getTimestamp("admPrildate"));
+			admPrilVO.setAdmPrilStatus(rs.getInt("admPrilStatus"));
+			
+			list.add(admPrilVO); // Store the row in the list
+		
+		}
+
+		// Handle any driver errors
+	}  catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return list;
+}
+
+
 }

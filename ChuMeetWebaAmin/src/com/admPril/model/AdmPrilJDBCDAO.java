@@ -333,4 +333,10 @@ public class AdmPrilJDBCDAO implements AdmPrilDAO_interface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<AdmPrilVO> findByAdminID(Integer adminID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
