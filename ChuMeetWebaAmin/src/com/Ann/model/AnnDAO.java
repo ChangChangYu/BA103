@@ -237,10 +237,9 @@ public class AnnDAO implements AnnDAO_interface{
 					annVO = new AnnVO();
 					annVO.setAnnID(rs.getInt(1));
 					annVO.setAdminID(rs.getInt(1));
-					annVO.setAnnName(rs.getString("job"));
-					annVO.setAnnContent(rs.getString("hiredate"));
-					annVO.setAnnDate(rs.getTimestamp("sal"));
-					
+					annVO.setAnnName(rs.getString("annName"));
+					annVO.setAnnContent(rs.getString("annContent"));
+					annVO.setAnnDate(rs.getTimestamp("annDate"));			
 					list.add(annVO); // Store the row in the list
 				}
 

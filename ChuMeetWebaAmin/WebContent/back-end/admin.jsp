@@ -11,6 +11,8 @@
 	pageContext.setAttribute("list", list);
 	AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
 	List<AdmPrilVO> admPrilList = (List)session.getAttribute("admPrilList");
+	
+	session.setAttribute("page", "admin");
 %>
 
 <html>
@@ -95,136 +97,15 @@
 
 <c:if test="${adminVO!=null}">
 	<div class="wrapper">
-		<div class="sidebar" data-color="purple"
-			data-image="<%=request.getContextPath()%>/HTML/BackEnd/assets/img/sidebar-1.jpg">
-			<!--
-            Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
-            Tip 2: you can also add an image using data-image tag
-        -->
-			<div class="logo text-center">
-				<img
-					src="<%=request.getContextPath()%>/HTML/BackEnd/assets/img/ChuMeet_logo_2.png">
-				<strong>管理平台</strong>
-			</div>
-			<div class="sidebar-wrapper">
-				<ul class="nav">
-					<li><a href="index.html"><i class="material-icons">home</i>
-							<p>
-								<strong>首頁</strong>
-							</p></a></li>
-					<c:forEach var="admPrilVO" items="${admPrilList}">
-						<c:if test="${admPrilVO.admPrilID==1}">
-							<li class="active"><a href="admin_admin.html"><i
-									class="material-icons">person</i>
-									<p>
-										<strong>管理員管理</strong>
-									</p></a></li>
-						</c:if>
-						<c:if test="${admPrilVO.admPrilID==2}">
-							<li><a href="admin_info.html"><i class="material-icons">person</i>
-									<p>
-										<strong>網站管理</strong>
-									</p></a></li>
-						</c:if>
-						<c:if test="${admPrilVO.admPrilID==3}">
-							<li><a href="admin_appAnn.html"><i
-									class="material-icons">phonelink_ring</i>
-									<p>
-										<strong>APP推播管理</strong>
-									</p></a></li>
-						</c:if>
-						<c:if test="${admPrilVO.admPrilID==4}">
-							<li><a href="admin_member.html"><i
-									class="material-icons text-gray">face</i>
-									<p>
-										<strong>會員管理</strong>
-									</p></a></li>
-						</c:if>
-						<c:if test="${admPrilVO.admPrilID==5}">
-							<li><a href="admin_reward.html"><i
-									class="material-icons text-gray">face</i>
-									<p>
-										<strong>成就與獎賞管理</strong>
-									</p></a></li>
-						</c:if>
-						<c:if test="${admPrilVO.admPrilID==6}">
-							<li><a href="admin_memTicket.html"><i
-									class="material-icons">library_books</i>
-									<p>
-										<strong>檢舉管理</strong>
-									</p></a></li>
-						</c:if>
-						<c:if test="${admPrilVO.admPrilID==7}">
-							<li><a href="admin_POI.html"><i class="material-icons">location_on</i>
-									<p>
-										<strong>活動社團分類管理</strong>
-									</p></a></li>
-						</c:if>
-						<c:if test="${admPrilVO.admPrilID==8}">
-							<li><a href="admin_act.html"><i
-									class="material-icons text-gray">directions_bike</i>
-									<p>
-										<strong>活動管理</strong>
-									</p></a></li>
-						</c:if>
-						<c:if test="${admPrilVO.admPrilID==9}">
-							<li><a href="admin_club.html"><i
-									class="material-icons text-gray">wc</i>
-									<p>
-										<strong>社團資料管理</strong>
-									</p></a></li>
-						</c:if>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
+		
+		<!-- Sidebar -->
+		<c:import url = "/back-end/backEndSidebar.jsp">
+		</c:import>
+		
 		<div class="main-panel">
-			<nav class="navbar navbar-transparent ">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#pablo" class="dropdown-toggle"
-							data-toggle="dropdown">
-								<p class="hidden-lg hidden-md">Dashboard</p>
-						</a></li>
-						<li><a href="#pablo" class="dropdown-toggle"
-							data-toggle="dropdown"> <i class="material-icons">person</i>
-								<p class="hidden-lg hidden-md">Profile</p>
-						</a>
-													<ul class="dropdown-menu">
-								<li class="text-center">
-								<FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/back-end/admin.do">
-												<input type="submit" value="修改資料"
-													class="btn-link"> <input
-													type="hidden" name="action" value="getOne_For_Update"> <input
-													type="hidden" name="adminID" value="${adminVO.adminID}">
-											</FORM>
-								</li>
-								<li class="text-center">
-								<FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/back-end/admin.do">
-												<input type="submit" value="登出"
-													class="btn-link"> <input
-													type="hidden" name="action" value="logout"> <input
-													type="hidden" name="adminID" value="${adminVO.adminID}">
-											</FORM>
-								</li>
-								
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-			</nav>
+				<!-- Navbar -->
+				<c:import url = "/back-end/backEndNavbar.jsp">
+				</c:import>
 			<!--/////////////CONTENT///////////////////-->
 			<!--/////////////////////////////////////////////////////////////////////////////-->
 			<!--/////////////////////////////////////////////////////////////////////////////-->

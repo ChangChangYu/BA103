@@ -10,7 +10,7 @@ public class AnnJDBCDAO implements AnnDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "servlet";
-	String passwd = "123";
+	String passwd = "123456";
 
 	private static final String INSERT_STMT = 
 		"INSERT INTO ann (annID,adminID,annName,annContent,annDate) VALUES (annID_seq.NEXTVAL, ?, ?, ?, ?)";
@@ -250,9 +250,9 @@ public class AnnJDBCDAO implements AnnDAO_interface{
 				annVO = new AnnVO();
 				annVO.setAnnID(rs.getInt(1));
 				annVO.setAdminID(rs.getInt(1));
-				annVO.setAnnName(rs.getString("job"));
-				annVO.setAnnContent(rs.getString("hiredate"));
-				annVO.setAnnDate(rs.getTimestamp("sal"));
+				annVO.setAnnName(rs.getString("annName"));
+				annVO.setAnnContent(rs.getString("annContent"));
+				annVO.setAnnDate(rs.getTimestamp("annDate"));	
 				
 				list.add(annVO); // Store the row in the list
 			}
@@ -296,37 +296,37 @@ public class AnnJDBCDAO implements AnnDAO_interface{
 
 		AnnJDBCDAO dao = new AnnJDBCDAO();
 
-		// �s�W
-		AnnVO annVO1 = new AnnVO();
-		annVO1.setAdminID(2);
-		annVO1.setAnnName("MANAGER");
-		annVO1.setAnnContent("MANAGER");
-		annVO1.setAnnDate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
-		
-		dao.insert(annVO1);
-
-		// �ק�
-		AnnVO annVO2 = new AnnVO();
-		annVO2.setAnnID(2);
-		annVO2.setAdminID(1);
-		annVO2.setAnnName("MANAGER2");
-		annVO2.setAnnContent("MANAGER2");
-		annVO2.setAnnDate(java.sql.Timestamp.valueOf("2002-01-01 10:10:10"));
-		
-		
-		dao.update(annVO2);
-
-		// �R��
-//		dao.delete(1);
-		//adminID=?,annName=?,annContent=?,annDate=? 
-		// �d��
-		AnnVO annVO3 = dao.findByPrimaryKey(1);
-		System.out.print(annVO3.getAnnID() + ",");
-		System.out.print(annVO3.getAdminID() + ",");
-		System.out.print(annVO3.getAnnName() + ",");
-		System.out.print(annVO3.getAnnContent() + ",");
-		System.out.print(annVO3.getAnnDate() + ",");
-	
+//		// �s�W
+//		AnnVO annVO1 = new AnnVO();
+//		annVO1.setAdminID(2);
+//		annVO1.setAnnName("MANAGER");
+//		annVO1.setAnnContent("MANAGER");
+//		annVO1.setAnnDate(java.sql.Timestamp.valueOf("2005-01-01 10:10:10"));
+//		
+//		dao.insert(annVO1);
+//
+//		// �ק�
+//		AnnVO annVO2 = new AnnVO();
+//		annVO2.setAnnID(2);
+//		annVO2.setAdminID(1);
+//		annVO2.setAnnName("MANAGER2");
+//		annVO2.setAnnContent("MANAGER2");
+//		annVO2.setAnnDate(java.sql.Timestamp.valueOf("2002-01-01 10:10:10"));
+//		
+//		
+//		dao.update(annVO2);
+//
+//		// �R��
+////		dao.delete(1);
+//		//adminID=?,annName=?,annContent=?,annDate=? 
+//		// �d��
+//		AnnVO annVO3 = dao.findByPrimaryKey(1);
+//		System.out.print(annVO3.getAnnID() + ",");
+//		System.out.print(annVO3.getAdminID() + ",");
+//		System.out.print(annVO3.getAnnName() + ",");
+//		System.out.print(annVO3.getAnnContent() + ",");
+//		System.out.print(annVO3.getAnnDate() + ",");
+//	
 		System.out.println("---------------------");
 
 		// �d��

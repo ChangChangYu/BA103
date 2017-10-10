@@ -4,6 +4,9 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.admin.model.*"%>
 <%@ page import="com.admPril.model.*"%>
+<%
+session.setAttribute("page", "admin");
+ %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
@@ -77,113 +80,17 @@
 </head>
 
 <body>
-
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font color='red'>請修正以下錯誤:
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li>${message.value}</li>
-				</c:forEach>
-			</ul>
-		</font>
-	</c:if>
-
-
+<c:if test="${adminVO!=null}">
 	<div class="wrapper">
-		<div class="sidebar" data-color="purple"
-			data-image="<%=request.getContextPath()%>/HTML/BackEnd/assets/img/sidebar-1.jpg">
-			<!--
-            Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
-            Tip 2: you can also add an image using data-image tag
-        -->
-			<div class="logo text-center">
-				<img
-					src="<%=request.getContextPath()%>/HTML/BackEnd/assets/img/ChuMeet_logo_2.png">
-				<strong>管理平台</strong>
-			</div>
-			<div class="sidebar-wrapper">
-				<ul class="nav">
-					<li><a href="index.html"><i class="material-icons">home</i>
-							<p>
-								<strong>首頁</strong>
-							</p></a></li>
-					<li class="active"><a href="admin_admin.html"><i
-							class="material-icons">person</i>
-							<p>
-								<strong>管理員管理</strong>
-							</p></a>
-					<li><a href="admin_info.html"><i class="material-icons">person</i>
-							<p>
-								<strong>網站管理</strong>
-							</p></a></li>
-					<li><a href="admin_appAnn.html"><i class="material-icons">phonelink_ring</i>
-							<p>
-								<strong>APP推播管理</strong>
-							</p></a></li>
-					<li><a href="admin_member.html"><i
-							class="material-icons text-gray">face</i>
-							<p>
-								<strong>會員管理</strong>
-							</p></a></li>
-					<li><a href="admin_reward.html"><i
-							class="material-icons text-gray">face</i>
-							<p>
-								<strong>成就與獎賞管理</strong>
-							</p></a></li>
-					<li><a href="admin_memTicket.html"><i
-							class="material-icons">library_books</i>
-							<p>
-								<strong>檢舉管理</strong>
-							</p></a></li>
-					<li><a href="admin_POI.html"><i class="material-icons">location_on</i>
-							<p>
-								<strong>活動社團分類管理</strong>
-							</p></a></li>
-					<li><a href="admin_act.html"><i
-							class="material-icons text-gray">directions_bike</i>
-							<p>
-								<strong>活動管理</strong>
-							</p></a></li>
-					<li><a href="admin_club.html"><i
-							class="material-icons text-gray">wc</i>
-							<p>
-								<strong>社團資料管理</strong>
-							</p></a></li>
-				</ul>
-			</div>
-		</div>
+		
+		<!-- Sidebar -->
+		<c:import url = "/back-end/backEndSidebar.jsp">
+		</c:import>
+		
 		<div class="main-panel">
-			<nav class="navbar navbar-transparent ">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Material Dashboard</a>
-				</div>
-				<div class="collapse navbar-collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#pablo" class="dropdown-toggle"
-							data-toggle="dropdown">
-								<p class="hidden-lg hidden-md">Dashboard</p>
-						</a></li>
-						<li><a href="#pablo" class="dropdown-toggle"
-							data-toggle="dropdown"> <i class="material-icons">person</i>
-								<p class="hidden-lg hidden-md">Profile</p>
-						</a>
-													<ul class="dropdown-menu">
-								<li><a href="#">修改資料</a></li>
-								<li><a href="#">登出</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-			</nav>
+				<!-- Navbar -->
+				<c:import url = "/back-end/backEndNavbar.jsp">
+				</c:import>
 			<!--/////////////CONTENT///////////////////-->
 			<!--/////////////////////////////////////////////////////////////////////////////-->
 			<!--/////////////////////////////////////////////////////////////////////////////-->
@@ -232,16 +139,13 @@
 									<tr>
 										<td><input type="TEXT" name="adminName" size="45"
 											value="<%=adminVO.getAdminName()%>"></td>
-									</tr>
-									<tr>
+									
 										<td><input type="TEXT" name="adminMail" size="45"
 											value="<%=adminVO.getAdminMail()%>"></td>
-									</tr>
-									<tr>
+						
 										<td><input type="TEXT" name="adminPW" size="45"
 											value="<%=adminVO.getAdminPW()%>"></td>
-									</tr>
-									<tr>
+									
 										<td><input type="TEXT" name="adminEmail" size="45"
 											value="<%=adminVO.getAdminEmail()%>"></td>
 									</tr>
@@ -398,6 +302,7 @@
 			<!--/////////////////////////////////////////////////////////////////////////////-->
 		</div>
 	</div>
+	</c:if>
 </body>
 <!--   Core JS Files   -->
 <script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>

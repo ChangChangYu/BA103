@@ -1,7 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import = "com.info.model.*" %>
+<%
+session.setAttribute("page", "info");
+ %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<%
+	InfoService infoSvc=new InfoService();
+	List<InfoVO> list=infoSvc.getAll();
+	pageContext.setAttribute("list", list);
+%>
 
 <html>
 
@@ -62,89 +72,17 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="sidebar" data-color="purple" data-image="<%=request.getContextPath()%>/HTML/BackEnd/assets/img/sidebar-1.jpg">
-            <!--
-            Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
-
-            Tip 2: you can also add an image using data-image tag
-        -->
-            <div class="logo text-center">
-                <img src="<%=request.getContextPath()%>/HTML/BackEnd/assets/img/ChuMeet_logo_2.png"> <strong>管理平台</strong>
-            </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li>
-                        <a href="index.html"><i class="material-icons">home</i>
-                        <p><strong>首頁</strong></p></a>
-                    </li>
-                    <li>
-                        <a href="admin_admin.html"><i class="material-icons">person</i>
-                        <p><strong>管理員管理</strong></p></a>
-                        <li class="active">
-                            <a href="admin_info.html"><i class="material-icons">person</i>
-                        <p><strong>網站管理</strong></p></a>
-                        </li>
-                        <li>
-                            <a href="admin_appAnn.html"><i class="material-icons">phonelink_ring</i>
-                        <p><strong>APP推播管理</strong></p></a>
-                        </li>
-                        <li>
-                            <a href="admin_member.html"><i class="material-icons text-gray">face</i>
-                        <p><strong>會員管理</strong></p></a>
-                        </li>
-                        <li>
-                            <a href="admin_reward.html"><i class="material-icons text-gray">face</i>
-                        <p><strong>成就與獎賞管理</strong></p></a>
-                        </li>
-                        <li>
-                            <a href="admin_memTicket.html"><i class="material-icons">library_books</i>
-                        <p><strong>檢舉管理</strong></p></a>
-                        </li>
-                        <li>
-                            <a href="admin_POI.html"><i class="material-icons">location_on</i>
-                        <p><strong>活動社團分類管理</strong></p></a>
-                        </li>
-                        <li>
-                            <a href="admin_act.html"><i class="material-icons text-gray">directions_bike</i>
-                        <p><strong>活動管理</strong></p></a>
-                        </li>
-                        <li>
-                            <a href="admin_club.html"><i class="material-icons text-gray">wc</i>
-                        <p><strong>社團資料管理</strong></p></a>
-                        </li>
-                </ul>
-            </div>
-        </div>
-        <div class="main-panel">
-            <nav class="navbar navbar-transparent ">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                        <a class="navbar-brand" href="#">Material Dashboard</a> </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li> <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown"> <i class="material-icons">dashboard</i>
-              <p class="hidden-lg hidden-md">Dashboard</p>
-              </a> </li>
-                            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="material-icons">notifications</i> <span class="notification">5</span>
-              <p class="hidden-lg hidden-md">Notifications</p>
-              </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Mike John responded to your email</a></li>
-                                    <li><a href="#">You have 5 new tasks</a></li>
-                                    <li><a href="#">You're now friend with Andrew</a></li>
-                                    <li><a href="#">Another Notification</a></li>
-                                    <li><a href="#">Another One</a></li>
-                                </ul>
-                            </li>
-                            <li> <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown"> <i class="material-icons">person</i>
-              <p class="hidden-lg hidden-md">Profile</p>
-              </a> </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+<c:if test="${adminVO!=null}">
+	<div class="wrapper">
+		
+		<!-- Sidebar -->
+		<c:import url = "/back-end/backEndSidebar.jsp">
+		</c:import>
+		
+		<div class="main-panel">
+				<!-- Navbar -->
+				<c:import url = "/back-end/backEndNavbar.jsp">
+				</c:import>
             <!--/////////////CONTENT///////////////////-->
             <!--/////////////////////////////////////////////////////////////////////////////-->
             <!--/////////////////////////////////////////////////////////////////////////////-->
@@ -181,60 +119,18 @@
                                         <th class="col-md-1">編號</th>
                                         <th class="col-md-1">名稱</th>
                                         <th class="col-md-1">網頁資訊</th>
-                                        <th class="col-md-1">種類</th>
-                                        <th class="col-md-1">說明</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
+                                
+                                    <c:forEach var="infoVO" items="${list}">
                                     <tr>
-                                        <td>NO.1</td>
-                                        <td>使用導覽</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>NO.2</td>
-                                        <td>網站回饋</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>NO.3</td>
-                                        <td>關於我們</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>NO.4</td>
-                                        <td>捐款贊助</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>NO.5</td>
-                                        <td>使用條約</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>NO.6</td>
-                                        <td>免責聲明</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>NO.7</td>
-                                        <td>聯絡資訊</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    <td>${infoVO.infoID}</td>
+                                    <td>${infoVO.infoName}</td>
+                                    <td>${infoVO.infoContent}</td>  
+                                    </tr>                                
+                                    </c:forEach>
                                 </tbody>
                             </table>
                            
@@ -344,21 +240,22 @@
             <!--/////////////////////////////////////////////////////////////////////////////-->
         </div>
     </div>
+    </c:if>
 </body>
 <!--   Core JS Files   -->
-<script src="../assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
-<script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../assets/js/material.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/material.min.js" type="text/javascript"></script>
 <!--  Charts Plugin -->
-<script src="../assets/js/chartist.min.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
-<script src="../assets/js/bootstrap-notify.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/bootstrap-notify.js"></script>
 <!--  Google Maps Plugin    -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 <!-- Material Dashboard javascript methods -->
-<script src="../assets/js/material-dashboard.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/material-dashboard.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="../assets/js/demo.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/demo.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 

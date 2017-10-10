@@ -1,28 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.admin.model.*"%>
-<%@ page import="com.admPril.model.*"%>
-<%@ page import="com.admPrilType.model.*"%>
+<%@ page import="com.club.model.*"%>
 <%
-session.setAttribute("page", "admin");
+session.setAttribute("page", "club");
  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <%
-	AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
-%>
-<%
-	AdmPrilService admPrilSvc = new AdmPrilService();
-	List<AdmPrilVO> list = admPrilSvc.status2();
+	ClubService clubSvc = new ClubService();
+	List<ClubVO> list = clubSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
 
-<jsp:useBean id="adminSvc" scope="page"
-	class="com.admin.model.AdminService" />
-
-<jsp:useBean id="admPrilTypeSvc" scope="page"
-	class="com.admPrilType.model.AdmPrilTypeService" />
 <html>
 <head>
 <meta charset="utf-8" />
@@ -72,27 +62,11 @@ session.setAttribute("page", "admin");
 	font-weight: bold;
 	line-height: 1.5em;
 }
-
-.cclabel:after {
-	content: '';
-	position: absolute;
-	top: 0px;
-	left: 2px;
-	width: 20px;
-	height: 20px;
-	background: #fff;
-	border-radius: 20px;
-	transition: 0.3s;
-}
-
-.cclabel:active:after {
-	width: 20px;
-}
 </style>
 </head>
 
 <body>
-<c:if test="${adminVO!=null}">
+	<c:if test="${adminVO!=null}">
 	<div class="wrapper">
 		
 		<!-- Sidebar -->
@@ -109,15 +83,6 @@ session.setAttribute("page", "admin");
 			<!--/////////////////////////////////////////////////////////////////////////////-->
 			<!--/////////////////////////////////////////////////////////////////////////////-->
 			<div class="container">
-				<h2>
-					<strong>管理員列表</strong>
-				</h2>
-				<ul class="nav nav-tabs">
-					<li><a data-toggle="tab" href="admin.jsp">管理員資料</a></li>
-					<li class="active"><a data-toggle="tab" href="admPrilType.jsp">管理員權限</a></li>
-
-				</ul>
-
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group  is-empty">
 						<input type="text" class="form-control" placeholder="搜索">
@@ -130,33 +95,49 @@ session.setAttribute("page", "admin");
 				</form>
 				<div class="tab-content">
 					<div class="tab-pane fade in active">
-						<h2>管理員權限管理</h2>
-
-						<table class="table table-hover">
-							<tr class="bg-danger">
-								<th class="col-md-1">網頁管理</th>
-								<th class="col-md-1">姓名</th>
-							</tr>
+						<h2>社團資料管理</h2>
+						<table class="table  table-hover">
+							<thead>
+								<tr class="bg-danger">
+									<th class="col-md-1">編號</th>
+									<th class="col-md-1">名稱</th>
+									<th class="col-md-1">內容</th>
+									<th class="col-md-1">日期</th>
+									<th class="col-md-1">狀態</th>
+								</tr>
 							</thead>
-
 							<tbody>
 
-								<c:forEach var="admPrilVO" items="${list}">
+								<c:forEach var="clubVO" items="${list}">
+								<c:if test="${clubVO.clubStatus==1}">
 									<tr>
-										<td>${admPrilTypeSvc.getOneAdmPrilType(admPrilVO.admPrilID).admPrilTypeName}</td>
-
-										<td>${adminSvc.getOneAdmin(admPrilVO.adminID).adminName}</td>
-
+										<td>${clubVO.clubmemID}</td>
+										<td>${clubVO.clubName}</td>
+										<td>${clubVO.clubContent}</td>
+										<td>${clubVO.clubStartDate}</td>
+									<td>
+										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/club.do">
+											<input type="submit" value="暫停"class="btn btn-sm btn-warning">
+											<input type="hidden"name="action" value="ststus1"> 
+											
+										</FORM>
+										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/club.do">
+											<input type="submit" value="恢復"class="btn btn-sm btn-success">
+											<input type="hidden"name="action" value="ststus1"> 
+										
+										</FORM>
+										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/club.do">
+											<input type="submit" value="禁止"class="btn btn-danger btn-sm statbtn"> 
+											<input type="hidden" name="action" value="ststus1">
+									
+										</FORM>
+										</td>
 									</tr>
+									</c:if>
 								</c:forEach>
-
-
-
-
 							</tbody>
-						</table>
 
-						</FORM>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -166,7 +147,7 @@ session.setAttribute("page", "admin");
 			<!--/////////////////////////////////////////////////////////////////////////////-->
 		</div>
 	</div>
-	</c:if>
+	 </c:if>
 </body>
 <!--   Core JS Files   -->
 <script

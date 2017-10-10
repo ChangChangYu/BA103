@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.4">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
   <display-name>ChuMeet_Back</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -23,10 +23,7 @@
     <servlet-name>AdminLoginServlet</servlet-name>
     <url-pattern>/back-end/backLogin.do</url-pattern>
   </servlet-mapping>
-  
-  
-  
-   <servlet>
+  <servlet>
     <servlet-name>AdmincontrollerServlet</servlet-name>
     <servlet-class>com.admin.controller.AdminServlet</servlet-class>
   </servlet>
@@ -34,10 +31,82 @@
     <servlet-name>AdmincontrollerServlet</servlet-name>
     <url-pattern>/back-end/admin.do</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>ClubcontrollerServlet</servlet-name>
+    <servlet-class>com.club.controller.ClubServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ClubcontrollerServlet</servlet-name>
+    <url-pattern>/back-end/club.do</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>AnncontrollerServlet</servlet-name>
+    <servlet-class>com.ann.controller.AnnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AnncontrollerServlet</servlet-name>
+    <url-pattern>/back-end/ann.do</url-pattern>
+  </servlet-mapping>
   
   
   
+   <servlet>
+    <servlet-name>AppcontrollerServlet</servlet-name>
+    <servlet-class>com.app.controller.AppServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AppcontrollerServlet</servlet-name>
+    <url-pattern>/back-end/app.do</url-pattern>
+  </servlet-mapping>
   
+  
+  
+   <servlet>
+    <servlet-name>MembercontrollerServlet</servlet-name>
+    <servlet-class>com.memBer.controller.MemberServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MembercontrollerServlet</servlet-name>
+    <url-pattern>/back-end/member.do</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>AchRewardcontrollerServlet</servlet-name>
+    <servlet-class>com.achRewaed.controller.AchReaedServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AchRewardcontrollerServlet</servlet-name>
+    <url-pattern>/back-end/achReward.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>TicketcontrollerServlet</servlet-name>
+    <servlet-class>com.ticket.controller.TicketServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TicketcontrollerServlet</servlet-name>
+    <url-pattern>/back-end/ticket.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PoicontrollerServlet</servlet-name>
+    <servlet-class>com.poi.controller.PoiServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PoicontrollerServlet</servlet-name>
+    <url-pattern>/back-end/poi.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ActcontrollerServlet</servlet-name>
+    <servlet-class>com.act.controller.ActServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ActcontrollerServlet</servlet-name>
+    <url-pattern>/back-end/act.do</url-pattern>
+  </servlet-mapping>
   
   
 </web-app>

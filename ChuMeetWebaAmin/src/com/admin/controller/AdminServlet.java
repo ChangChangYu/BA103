@@ -1,6 +1,7 @@
 package com.admin.controller;
 
 import java.io.*;
+import java.security.MessageDigest;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -47,7 +48,7 @@ public class AdminServlet extends HttpServlet {
 					errorMsgs.put("adminEmail", "信箱勿空白");
 				}
 				// Send the use back to the form, if there were errors
-				if (errorMsgs.isEmpty()) {
+				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/admPril.jsp");
 					failureView.forward(req, res);
 					return;
@@ -57,17 +58,18 @@ public class AdminServlet extends HttpServlet {
 				System.out.println(adminEmail);
 
 				// 寄信＋密碼
-				String uuid = "ChuMeet" + UUID.randomUUID().toString();
-				System.out.println(uuid);
+				Random rand = new Random();
+				String pw = encrypt(rand.toString());
+				System.out.println(pw);
 				AdminMailService mailService = new AdminMailService();
 				// UUID
-				mailService.sendMail("ChuMeetService@gmail.com", "揪咪管理員ChuMeet 密碼確認信",
-						"<img src=\"https://i.imgur.com/IN3wmJe.png\"><h2>親愛的 " + adminName
-								+ " 您好:</h2><br><p>歡迎您成為揪咪ChuMeet管理員。密碼為</p><br><strong>" + uuid
-								+ "</strong><br><p>ChuMeet將會提供您更多的服務資訊與內容。 </p><br><h5>ChuMeet歡迎您的加入! ChuMeet服務團隊</h5><br><h4>如有任何問題歡迎來信ChuMeet客服信箱: chuMeetService@gmail.com</h4>");
+//				mailService.sendMail("ChuMeetService@gmail.com", "揪咪管理員ChuMeet 密碼確認信",
+//						"<img src=\"https://i.imgur.com/IN3wmJe.png\"><h2>親愛的 " + adminName
+//								+ " 您好:</h2><br><p>歡迎您成為揪咪ChuMeet管理員。密碼為</p><br><strong>" + pw
+//								+ "</strong><br><p>ChuMeet將會提供您更多的服務資訊與內容。 </p><br><h5>ChuMeet歡迎您的加入! ChuMeet服務團隊</h5><br><h4>如有任何問題歡迎來信ChuMeet客服信箱: chuMeetService@gmail.com</h4>");
 				// 開始新增資料
 				AdminService adminSvc = new AdminService();
-				adminSvc.addAdmin(adminName, adminMail, uuid, adminEmail, nowTimestamp(), 1);
+				adminSvc.addAdmin(adminName, adminMail, pw, adminEmail, nowTimestamp(), 1);
 
 				AdminVO adminVO = adminSvc.getAdminByAdminName(adminName);
 				System.out.println(adminVO.getAdminName());
@@ -296,4 +298,31 @@ public class AdminServlet extends HttpServlet {
 		java.sql.Timestamp stp = new java.sql.Timestamp(utildate.getTime());
 		return stp;
 	}
+	
+	//加密
+	public static String encrypt(String s){   
+		  MessageDigest sha = null;
+		  
+		  try{
+		   sha = MessageDigest.getInstance("SHA-256");   
+		   sha.update(s.getBytes());   
+		  }catch(Exception e){
+		   e.printStackTrace();
+		   return "";
+		  }
+
+		  return byte2hex(sha.digest());   
+		  
+		 }
+	//hash
+	private static String byte2hex(byte[] b){
+	     String hs="";
+	     String stmp="";
+	     for (int n=0;n<b.length;n++){
+	      stmp=(java.lang.Integer.toHexString(b[n] & 0XFF));
+	      if (stmp.length()==1) hs=hs+"0"+stmp;
+	      else hs=hs+stmp;
+	     }
+	     return hs.toUpperCase();
+	    }
 }
