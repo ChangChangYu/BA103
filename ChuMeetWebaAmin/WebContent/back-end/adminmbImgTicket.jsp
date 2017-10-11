@@ -3,12 +3,12 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.admin.model.*"%>
 <%@ page import="com.admPril.model.*"%>
-<%
-session.setAttribute("page", "ticket");
- %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+
+<%session.setAttribute("page", "ticket"); %>
+
+
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="<%=request.getContextPath()%>/HTML/BackEnd/assets/img/apple-icon.png" />
@@ -46,7 +46,6 @@ session.setAttribute("page", "ticket");
         font-weight: bold;
         line-height: 1.5em;
     }
-
     .cclabel:after {
         content: '';
         position: absolute;
@@ -65,7 +64,7 @@ session.setAttribute("page", "ticket");
 </head>
 
 <body>
- <c:if test="${adminVO!=null}">
+    <c:if test="${adminVO!=null}">
 	<div class="wrapper">
 		
 		<!-- Sidebar -->
@@ -103,30 +102,38 @@ session.setAttribute("page", "ticket");
                 </form>
                 <div class="tab-content">
                     <div class="tab-pane fade in active">
-                        <h2>會員檢舉管理</h2>
+                        <h2>留言板照片管理</h2>
                         <table class="table  table-hover">
                             <thead>
                             <tr class="bg-danger">
                                 <th class="col-md-1">流水號</th>
-                                <th class="col-md-1">檢舉人</th>
-                                <th class="col-md-1">被檢舉人</th>
+                                <th class="col-md-1">會員</th>
+                                <th class="col-md-1">活動相片</th>
+                                <th class="col-md-1">社團相片</th>
+                                <th class="col-md-1">被檢舉會員</th>
+                                <th class="col-md-1">動態留言</th>
+                                <th class="col-md-1">會員留言代號</th>
                                 <th class="col-md-1">說明</th>
-                                <th class="col-md-1">日期</th>
-                                <th class="col-md-1">狀態</th>
+                                <th class="col-md-1">時間</th>
+                                <th class="col-md-2">狀態</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>NO.1</td>
                                     <td>徐敏道</td>
-                                    <td>顧仲偉</td>
+                                    <td>123</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <span class="btn-group">
-                        <button type="button" class="btn btn-danger btn-sm statbtn" name="actStatID" value="5">停權</button>                     
+                                          <span class="btn-group">
+                        <button type="button" class="btn btn-danger btn-sm statbtn" name="actStatID" value="5">刪除</button>                     
                                </span>
-                                        <button class="btn btn-sm btn-warning">暫停</button>
+                                        <button class="btn btn-sm btn-warning">恢復</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -136,10 +143,14 @@ session.setAttribute("page", "ticket");
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
-                       
+                         
                     </div>
                 </div>
                 </div>
@@ -152,19 +163,19 @@ session.setAttribute("page", "ticket");
         </c:if>
 </body>
 <!--   Core JS Files   -->
-<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/assets/js/material.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/material.min.js" type="text/javascript"></script>
 <!--  Charts Plugin -->
-<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/assets/js/chartist.min.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
-<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/assets/js/bootstrap-notify.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/bootstrap-notify.js"></script>
 <!--  Google Maps Plugin    -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 <!-- Material Dashboard javascript methods -->
-<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/assets/js/material-dashboard.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/material-dashboard.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/assets/js/demo.js"></script>
+<script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/demo.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -174,4 +185,4 @@ $(document).ready(function() {
 });
 </script>
 
-</html>
+</html>l>

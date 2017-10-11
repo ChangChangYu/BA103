@@ -97,9 +97,7 @@ session.setAttribute("page", "admin");
             <!--/////////////////////////////////////////////////////////////////////////////-->
             <!--/////////////////////////////////////////////////////////////////////////////-->
             <div class="container">
-				<h2>
-					<strong>管理員列表</strong>
-				</h2>
+				
 				<ul class="nav nav-tabs">
 					<li class="active"><a data-toggle="tab" href="#actMain">管理員資料</a>
 					</li>
@@ -117,7 +115,7 @@ session.setAttribute("page", "admin");
 				</form>
                 <div class="tab-content">
                     <div class="tab-pane fade in active">
-                        <h2>管理員管理</h2>
+                        
                         
                             <table class="table table-hover">
                                 <thead>

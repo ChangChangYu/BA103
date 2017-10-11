@@ -1,17 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.Ann.model.*"%>
-<%
-session.setAttribute("page", "info");
- %>
+<%@ page import="com.admin.model.*"%>
+<%@ page import="com.admPril.model.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%
-	AnnService annSvc = new AnnService();
-	List<AnnVO> list = annSvc.getAll();
-	pageContext.setAttribute("list", list);
-%>
-<html >
+
+<%session.setAttribute("page", "achReward"); %>
 
 <head>
     <meta charset="utf-8" />
@@ -62,14 +56,12 @@ session.setAttribute("page", "info");
         border-radius: 20px;
         transition: 0.3s;
     }
-
     .cclabel:active:after {
         width: 20px;
     }
     </style>
 </head>
 
-<body>
 <c:if test="${adminVO!=null}">
 	<div class="wrapper">
 		
@@ -87,85 +79,84 @@ session.setAttribute("page", "info");
             <!--/////////////////////////////////////////////////////////////////////////////-->
             <!--/////////////////////////////////////////////////////////////////////////////-->
             <div class="container">
-           
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                         <a data-toggle="tab" href="#webinfo">網站資訊</a>
-                    </li>
-                    <li>
-                        <a data-toggle="tab" href="#actTemp">公告管理</a>
-                    </li>
-                    <li>
-                        <a data-toggle="tab" href="#menu2">廣告管理</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                   
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group  is-empty">
-                                <input type="text" class="form-control" placeholder="搜索">
-                                <span class="material-input"></span> </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon"> <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </form>
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active" id="actMain">
-                               
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr class="bg-danger">
-                                           
-                                            <th class="col-md-1">公告編號</th>
-                                            <th class="col-md-1">公告標題</th>
-                                            <th class="col-md-1">公告內容</th>
-                                            <th class="col-md-1">公告日期</th>
-                                            <th class="col-md-1">狀態</th>                            
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="annVO" items="${list}">
-                                        <tr>
-                                            <td>${annVO.adminID}</td>
-                                            <td>${annVO.annName}</td>
-                                            <td>${annVO.annContent}</td>
-                                            <td>${annVO.annDate}</td>                                           
-                                            <td>
-                                           <FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/back-end/admin.do">
-												<input type="submit" value="修改"
-													class="btn btn-sm btn-warning"> <input
-													type="hidden" name="adminID" value="${adminVO.adminID}">
-												<input type="hidden" name="action" value="getOne_For_Update">
-											</FORM>
-										
-											<FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/back-end/admin.do">
-												<input type="submit" value="刪除"
-													class="btn btn-danger btn-sm statbtn"> <input
-													type="hidden" name="action" value="ststus1"> <input
-													type="hidden" name="adminID" value="${adminVO.adminID}">
-											</FORM>
-                                            </td>
-                                        </tr>
-                                       </c:forEach>
-                                    </tbody>
-                                </table>
-                                		<ul>
-							<a href='admPril.jsp' class="btn btn-success">新增</a>
-						</ul>
 
-                             
-                            </div>
-                        </div>
+            <h2><strong>會員管理</strong></h2>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">會員資料管理</a></li>
+                    <li><a data-toggle="tab" href="#menu1">獎賞管理</a></li>
+                    <li><a data-toggle="tab" href="#menu2">成就管理</a></li>
+                </ul>
+
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group  is-empty">
+                        <input type="text" class="form-control" placeholder="搜索">
+                        <span class="material-input"></span> </div>
+                    <button type="submit" class="btn btn-white btn-round btn-just-icon"> <i class="material-icons">search</i>
+                        <div class="ripple-container"></div>
+                    </button>
+                </form>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active">
+                        <h2>獎賞管理</h2>
+                        <table class="table table-hove">
+                            <thead>
+                                <tr class="bg-danger">
+                                    <th class="col-md-1">圖片</th>
+                                    <th class="col-md-1">會員</th>
+                                    <th class="col-md-1">名稱</th>
+                                    <th class="col-md-1">種類</th>
+                                    <th class="col-md-1">描述</th>
+                                    <th class="col-md-1">獲得方式</th>
+                                    <th class="col-md-1">需求揪點</th>
+                                    <th class="col-md-1">特價揪點</th>
+                                    <th class="col-md-1">時間</th>
+                                    <th class="col-md-2">狀態</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>徐敏道</td>
+                                    <td>123</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                     <button class="btn btn-sm btn-success">上架</button>
+                                        <span class="btn-group">
+                        <button type="button" class="btn btn-danger btn-sm statbtn" name="actStatID" value="5">下架</button>                     
+                               </span>
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                   
                     </div>
-                    <!--/////////////////////////////////////////////////////////////////////////////-->
-                    <!--/////////////////////////////////////////////////////////////////////////////-->
-                    <!--/////////////////////////////////////////////////////////////////////////////-->
-                    <!--/////////////////////////////////////////////////////////////////////////////-->
                 </div>
             </div>
-            </c:if>
+            <!--/////////////////////////////////////////////////////////////////////////////-->
+            <!--/////////////////////////////////////////////////////////////////////////////-->
+            <!--/////////////////////////////////////////////////////////////////////////////-->
+            <!--/////////////////////////////////////////////////////////////////////////////-->
+        </div>
+    </div>
+    </c:if>
 </body>
 <!--   Core JS Files   -->
 <script src="<%=request.getContextPath()%>/HTML/BackEnd/assets/js/jquery-3.1.0.min.js" type="text/javascript"></script>

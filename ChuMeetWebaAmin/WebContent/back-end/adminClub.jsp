@@ -95,7 +95,7 @@ session.setAttribute("page", "club");
 				</form>
 				<div class="tab-content">
 					<div class="tab-pane fade in active">
-						<h2>社團資料管理</h2>
+						
 						<table class="table  table-hover">
 							<thead>
 								<tr class="bg-danger">
@@ -183,4 +183,4 @@ session.setAttribute("page", "club");
 	});
 </script>
 
-</html>
+</html>ml>

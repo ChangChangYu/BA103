@@ -3,27 +3,12 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.admin.model.*"%>
 <%@ page import="com.admPril.model.*"%>
-<%@ page import="com.admPrilType.model.*"%>
-<%
-session.setAttribute("page", "admin");
- %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
-	AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
-%>
-<%
-	AdmPrilService admPrilSvc = new AdmPrilService();
-	List<AdmPrilVO> list = admPrilSvc.status2();
-	pageContext.setAttribute("list", list);
+	session.setAttribute("page", "info");
 %>
 
-<jsp:useBean id="adminSvc" scope="page"
-	class="com.admin.model.AdminService" />
-
-<jsp:useBean id="admPrilTypeSvc" scope="page"
-	class="com.admPrilType.model.AdmPrilTypeService" />
-<html>
 <head>
 <meta charset="utf-8" />
 <link rel="apple-touch-icon" sizes="76x76"
@@ -92,79 +77,111 @@ session.setAttribute("page", "admin");
 </head>
 
 <body>
-<c:if test="${adminVO!=null}">
-	<div class="wrapper">
-		
-		<!-- Sidebar -->
-		<c:import url = "/back-end/backEndSidebar.jsp">
-		</c:import>
-		
-		<div class="main-panel">
+	<c:if test="${adminVO!=null}">
+		<div class="wrapper">
+
+			<!-- Sidebar -->
+			<c:import url="/back-end/backEndSidebar.jsp">
+			</c:import>
+
+			<div class="main-panel">
 				<!-- Navbar -->
-				<c:import url = "/back-end/backEndNavbar.jsp">
+				<c:import url="/back-end/backEndNavbar.jsp">
 				</c:import>
-			<!--/////////////CONTENT///////////////////-->
-			<!--/////////////////////////////////////////////////////////////////////////////-->
-			<!--/////////////////////////////////////////////////////////////////////////////-->
-			<!--/////////////////////////////////////////////////////////////////////////////-->
-			<!--/////////////////////////////////////////////////////////////////////////////-->
-			<div class="container">
-				
-				<ul class="nav nav-tabs">
-					<li><a data-toggle="tab" href="admin.jsp">管理員資料</a></li>
-					<li class="active"><a data-toggle="tab" href="admPrilType.jsp">管理員權限</a></li>
+				<!--/////////////CONTENT///////////////////-->
+				<!--/////////////////////////////////////////////////////////////////////////////-->
+				<!--/////////////////////////////////////////////////////////////////////////////-->
+				<!--/////////////////////////////////////////////////////////////////////////////-->
+				<!--/////////////////////////////////////////////////////////////////////////////-->
+				<div class="container">
 
-				</ul>
+					<h2>
+						<strong>網站管理</strong>
+					</h2>
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#home">廣告管理</a></li>
+						<li><a data-toggle="tab" href="#menu1">公告管理</a></li>
+						<li><a data-toggle="tab" href="#menu2">網站資訊管理</a></li>
+					</ul>
+					<div class="tab-content">
+						<div id="home" class="tab-pane fade in active">
 
-				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group  is-empty">
-						<input type="text" class="form-control" placeholder="搜索">
-						<span class="material-input"></span>
+
+
+
+
+
+
+							<form class="navbar-form navbar-right" role="search">
+								<div class="form-group  is-empty">
+									<input type="text" class="form-control" placeholder="搜索">
+									<span class="material-input"></span>
+								</div>
+								<button type="submit"
+									class="btn btn-white btn-round btn-just-icon">
+									<i class="material-icons">search</i>
+									<div class="ripple-container"></div>
+								</button>
+							</form>
+							<div class="tab-content">
+								<div class="tab-pane fade in active">
+									<h2>廣告管理</h2>
+									<table class="table table-hover">
+										<thead>
+											<tr class="bg-danger">
+												<th class="col-md-1">管理員編號</th>
+												<th class="col-md-1">廣告標題></th>
+												<th class="col-md-1">廣告詞</th>
+												<th class="col-md-1">廣告圖</th>
+												<th class="col-md-1">廣告連結</th>
+												<th class="col-md-1">廣告日期</th>
+												<th class="col-md-1">廣告時間</th>
+												<th class="col-md-1">選取</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="checkbox">
+														<label> <input type="checkbox"
+															name="optionsCheckboxes">
+														</label>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+											</tr>
+										</tbody>
+									</table>
+									<button class="btn btn-success">新增</button>
+									<button class="btn btn-danger">刪除</button>
+								</div>
+							</div>
+						</div>
 					</div>
-					<button type="submit" class="btn btn-white btn-round btn-just-icon">
-						<i class="material-icons">search</i>
-						<div class="ripple-container"></div>
-					</button>
-				</form>
-				<div class="tab-content">
-					<div class="tab-pane fade in active">
-						
-
-						<table class="table table-hover">
-							<tr class="bg-danger">
-								<th class="col-md-1">網頁管理</th>
-								<th class="col-md-1">姓名</th>
-							</tr>
-							</thead>
-
-							<tbody>
-
-								<c:forEach var="admPrilVO" items="${list}">
-									<tr>
-										<td>${admPrilTypeSvc.getOneAdmPrilType(admPrilVO.admPrilID).admPrilTypeName}</td>
-
-										<td>${adminSvc.getOneAdmin(admPrilVO.adminID).adminName}</td>
-
-									</tr>
-								</c:forEach>
-
-
-
-
-							</tbody>
-						</table>
-
-						</FORM>
 					</div>
+					<!--/////////////////////////////////////////////////////////////////////////////-->
+					<!--/////////////////////////////////////////////////////////////////////////////-->
+					<!--/////////////////////////////////////////////////////////////////////////////-->
+					<!--/////////////////////////////////////////////////////////////////////////////-->
 				</div>
 			</div>
-			<!--/////////////////////////////////////////////////////////////////////////////-->
-			<!--/////////////////////////////////////////////////////////////////////////////-->
-			<!--/////////////////////////////////////////////////////////////////////////////-->
-			<!--/////////////////////////////////////////////////////////////////////////////-->
-		</div>
-	</div>
-	</c:if>
+			</c:if>
 </body>
 <!--   Core JS Files   -->
 <script

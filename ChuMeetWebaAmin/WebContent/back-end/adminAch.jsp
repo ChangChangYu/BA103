@@ -4,10 +4,9 @@
 <%@ page import="com.admin.model.*"%>
 <%@ page import="com.admPril.model.*"%>
 <%
-session.setAttribute("page", "admin");
+session.setAttribute("page", "act");
  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 
 <head>
     <meta charset="utf-8" />
@@ -65,7 +64,7 @@ session.setAttribute("page", "admin");
 </head>
 
 <body>
-<c:if test="${adminVO!=null}">
+   <c:if test="${adminVO!=null}">
 	<div class="wrapper">
 		
 		<!-- Sidebar -->
@@ -83,14 +82,13 @@ session.setAttribute("page", "admin");
             <!--/////////////////////////////////////////////////////////////////////////////-->
             <div class="container">
 
-             <h2><strong>會員管理</strong></h2>
+            <h2><strong>會員管理</strong></h2>
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#home">會員資料管理</a></li>
                     <li><a data-toggle="tab" href="#menu1">獎賞管理</a></li>
                     <li><a data-toggle="tab" href="#menu2">成就管理</a></li>
                 </ul>
-                <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
+
 
                 <form class="navbar-form navbar-right" role="search">
                     <div class="form-group  is-empty">
@@ -102,25 +100,31 @@ session.setAttribute("page", "admin");
                 </form>
                 <div class="tab-content">
                     <div class="tab-pane fade in active">
-                        <h2>會員資料管理</h2>
-                        <table class="table table-hove">
+                        <h2>成就管理</h2>
+                        <table class="table  table-hover">
                             <thead>
                                 <tr class="bg-danger">
-                                    <th class="col-md-1">姓名</th>
-                                    <th class="col-md-1">性別</th>
-                                    <th class="col-md-1">信箱</th>
-                                    <th class="col-md-1">生日</th>
-                                    <th class="col-md-1">日期</th>
-                                    <th class="col-md-1">狀態</th>
+                                    <th class="col-md-1">編號</th>
+                                    <th class="col-md-1">會員</th>
+                                    <th class="col-md-1">名稱</th>
+                                    <th class="col-md-1">種類</th>
+                                    <th class="col-md-2">說明</th>
+                                    <th class="col-md-1">經驗值</th>
+                                    <th class="col-md-1">揪點</th>
+                                    <th class="col-md-1">時間</th>
+                                    <th class="col-md-3">狀態</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>NO.1</td>
                                     <td>徐敏道</td>
-                                    <td>女</td>
-                                    <td>@gmail.com</td>
-                                    <td>2017.09.10</td>
-                                    <td>2017.09.10</td>
+                                    <td>123</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td>
                                         <span class="btn-group">
                         <button type="button" class="btn btn-danger btn-sm statbtn" name="actStatID" value="5">停權</button>                     
@@ -129,16 +133,21 @@ session.setAttribute("page", "admin");
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>NO.2</td>
+                                    <td>顧仲偉</td>
+                                    <td>456</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
+                                    <td>
+                                       
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-success">新增</button>
+                        
                     </div>
                 </div>
             </div>

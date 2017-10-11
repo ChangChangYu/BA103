@@ -99,7 +99,7 @@ public class BackLogin extends HttpServlet {
 				}
 			} catch (Exception ignored) {
 			}
-			res.sendRedirect(req.getContextPath() + "/back-end/admin.jsp");
+			res.sendRedirect(req.getContextPath() + "/back-end/index.jsp");
 
 		}
 	}
